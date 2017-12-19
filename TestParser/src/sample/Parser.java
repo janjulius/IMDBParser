@@ -15,7 +15,7 @@ public class Parser {
     }
 
     public void parseMovie() throws IOException {
-        FileReader fr = new FileReader("C:\\Users\\josdevries\\Desktop\\IMDBdata\\movies.list");
+        FileReader fr = new FileReader("C:\\Users\\JDV\\Desktop\\Jaar2P2imdbdata\\movies.list");
         BufferedReader reader = new BufferedReader(fr);
 
         int count = 0;
