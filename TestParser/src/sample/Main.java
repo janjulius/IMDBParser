@@ -24,6 +24,7 @@ public class Main extends Application {
         Parser parser = new Parser(controller);
 
         parser.parseMovie();
+        parser.parseCountries();
         model.printMovies();
     }
 

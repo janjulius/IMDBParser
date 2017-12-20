@@ -15,7 +15,7 @@ public class Parser {
     }
 
     public void parseMovie() throws IOException {
-        FileReader fr = new FileReader("C:\\Users\\JDV\\Desktop\\Jaar2P2imdbdata\\movies.list");
+        FileReader fr = new FileReader("C:\\Users\\lars-\\Documents\\School\\Periode 2\\Big Movie\\data\\movies.list");
         BufferedReader reader = new BufferedReader(fr);
 
         int count = 0;
@@ -64,4 +64,71 @@ public class Parser {
             }
         }
     }
+
+    public void parseCountries() throws IOException {
+        FileReader fr = new FileReader("C:\\Users\\lars-\\Documents\\School\\Periode 2\\Big Movie\\data\\countries.list");
+        BufferedReader reader = new BufferedReader(fr);
+
+        int count = 0;
+        int skipped = 0;
+
+        try {
+            String line = reader.readLine();
+            while (line != null) {
+                if(line.startsWith("\"")) {
+                    line = reader.readLine();
+                }
+                else{
+                    count++;
+                    int country = line.indexOf( '\t' );
+                    int yearSep = line.indexOf( '(' )+1;
+
+                    if (country > 0){
+
+                        String yearString = line.substring(yearSep, yearSep+4);
+                        System.out.print("first " + yearString);
+
+                        System.out.println(yearString);
+
+                        //check if year isnt part of title
+                        if(!tryParseInt(yearString)){
+                            yearSep = line.indexOf("(", yearSep);
+                        }
+
+                        yearString = line.substring(yearSep, yearSep+4);
+
+                        System.out.print(yearString);
+                        String title = line.substring( 0, country ).trim();
+                        String countryString = line.substring( country ).trim();
+                        title = title.substring(0, title.indexOf('('));
+                        int year = Integer.parseInt(yearString);
+
+                        this.controller.addCountry(title, countryString, year);
+
+                    }
+
+                    line = reader.readLine();
+                }
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                reader.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public boolean tryParseInt(String value) {
+        try {
+            Integer.parseInt(value);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
 }
