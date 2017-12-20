@@ -25,6 +25,7 @@ public class Main extends Application {
 
         parser.parseMovie();
         model.printMovies();
+        parser.parseRunningTimes();
     }
 
 

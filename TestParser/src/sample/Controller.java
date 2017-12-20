@@ -11,4 +11,7 @@ public class Controller {
     public void addMovie(String title, int year){
         this.model.addMovie(title, year);
     }
+    public void addRunningTime(String title, int year, int runningTime){
+        model.setMovieRunningTime(model.findMovieIndex(title, year), runningTime);
+    }
 }

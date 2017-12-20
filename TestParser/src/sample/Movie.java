@@ -6,6 +6,7 @@ public class Movie {
 
     private String title;
     private int year;
+    private int runningTime;
 
 
     public Movie(String title, int year){
@@ -19,5 +20,9 @@ public class Movie {
 
     public int getYear(){
         return this.year;
+    }
+
+    public void setRunningtime(int r){
+        this.runningTime = r;
     }
 }
