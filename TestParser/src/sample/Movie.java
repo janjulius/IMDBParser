@@ -6,24 +6,22 @@ public class Movie {
 
     private String title;
     private int year;
-    private ArrayList<String> country;
+    private String country;
 
 
     public Movie(String title, int year, String country){
         this.title = title;
         this.year = year;
-        this.country = new ArrayList();
+        this.country = "unknown";
     }
 
     public String getTitle(){
-        return this.title;
+        return title;
     }
 
-    public int getYear(){
-        return this.year;
-    }
+    public int getYear() { return year; }
 
-    public ArrayList<String> getCountry() { return country; }
+    public String getCountry() { return country; }
 
-    public void addCountry(String country) { this.country.add(country); }
+    public void addCountry(String country) { this.country = country; }
 }

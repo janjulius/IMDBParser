@@ -34,7 +34,7 @@ public class Parser {
                     if (yearSep > 0){
                         String title = line.substring( 0, yearSep ).trim();
                         String yearString = line.substring( yearSep ).trim();
-                        title = title.substring(0, title.indexOf('('));
+                        title = title.substring(0, yearSep);
 //                        if ( yearString.length() > 4 )
 //                        {
 //                            yearString = yearString.substring( 0, 4 );
@@ -75,36 +75,21 @@ public class Parser {
         try {
             String line = reader.readLine();
             while (line != null) {
+                if(count >= 5000) break;
                 if(line.startsWith("\"")) {
                     line = reader.readLine();
                 }
                 else{
-                    count++;
                     int country = line.indexOf( '\t' );
-                    int yearSep = line.indexOf( '(' )+1;
 
                     if (country > 0){
-
-                        String yearString = line.substring(yearSep, yearSep+4);
-                        System.out.print("first " + yearString);
-
-                        System.out.println(yearString);
-
-                        //check if year isnt part of title
-                        if(!tryParseInt(yearString)){
-                            yearSep = line.indexOf("(", yearSep);
-                        }
-
-                        yearString = line.substring(yearSep, yearSep+4);
-
-                        System.out.print(yearString);
                         String title = line.substring( 0, country ).trim();
                         String countryString = line.substring( country ).trim();
-                        title = title.substring(0, title.indexOf('('));
-                        int year = Integer.parseInt(yearString);
+                        title = title.substring(0, country);
 
-                        this.controller.addCountry(title, countryString, year);
-
+                        System.out.print(count);
+                        this.controller.addCountry(title, countryString);
+                        count++;
                     }
 
                     line = reader.readLine();

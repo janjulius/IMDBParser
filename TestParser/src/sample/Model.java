@@ -5,19 +5,21 @@ import java.util.ArrayList;
 
 public class Model {
     private ArrayList<Movie> movies = new ArrayList<Movie>();
+    private int count;
 
     public void addMovie(String title, int year){
         movies.add(new Movie(title, year, null));
     }
 
-    public void addCountry(String title, String country, int year){
-
-        for(Movie m:movies){
-            if(m.getTitle().toLowerCase().equals(title.toLowerCase()) &&
-                    m.getYear() == year){
-                m.addCountry(country);
-                System.out.println("Succes! " + m.getTitle() + " - " + title + " - " + country);
+    public void addCountry(String title, String country){
+        for(int i = count; i < movies.size(); i++){
+            if(movies.get(i).getTitle().toLowerCase().equals(title.toLowerCase())){
+                movies.get(i).addCountry(country);
+                System.out.println("Succes! " + movies.get(i).getTitle() + " - " + country);
+                count++;
                 break;
+            } else {
+                System.out.println("failed");
             }
         }
 
@@ -29,13 +31,9 @@ public class Model {
 
 
         for (Movie m : movies){
-            String line = "";
-            line += m.getTitle() + " - " + m.getYear();
-            for (String country : m.getCountry()){
-                line += " - " + country;
-            }
+            String line = m.getTitle() + " - " + m.getYear() + " - " + m.getCountry();
             writer.println(line);
-            //System.out.println(line);
+            System.out.println(line);
         }
 
         writer.close();
