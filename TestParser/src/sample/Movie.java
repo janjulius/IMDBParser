@@ -22,7 +22,5 @@ public class Movie {
         return this.year;
     }
 
-    public void setRunningtime(int r){
-        this.runningTime = r;
-    }
+    public void setRunningTime(int r){ runningTime = r;}
 }
