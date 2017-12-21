@@ -8,6 +8,7 @@ public class Movie {
     private int year;
     private String country;
     private int runningTime;
+    private double rating;
 
 
     public Movie(String title, int year, String country){
@@ -31,4 +32,6 @@ public class Movie {
     }
 
     public void setRunningTime(int r){ runningTime = r;}
+
+    public void setRating(double rating) { this.rating = rating;}
 }

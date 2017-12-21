@@ -220,4 +220,104 @@ public class Parser {
             }
         }
     }
+
+    public void parseMovieRatings(ArrayList<Movie> movies) throws IOException {
+        FileReader fr = new FileReader("C:\\Users\\muize\\Downloads\\ratings\\ratings.list");
+        BufferedReader reader = new BufferedReader(fr);
+        int count = 0;
+        int skipped = 0;
+        boolean dataReached = false;
+
+        try {
+            String line = reader.readLine();
+
+            while(line != null) {
+                while (!dataReached) {
+                    if (line.startsWith("MOVIE RATINGS REPORT")) {
+                        dataReached = true;
+                    } else {
+                        line = reader.readLine();
+                    }
+                }
+                if (line.startsWith("---"))
+                {
+                    break;
+                }
+                if (!line.startsWith("     ")) {
+//                    skipped++;
+                    line = reader.readLine();
+                }
+                else {
+//                    count++;
+                    String[] splitter = line.split(" ");
+                    int[] possibleIndex = new int[3];
+                    int index = 0;
+                    for (int i = 7; i < splitter.length; i++) {
+                        if (index < 3) {
+                            if (!splitter[i].equals("")) {
+                                possibleIndex[index] = i;
+                                index++;
+                            }
+                        }
+                    }
+
+                    if (splitter[possibleIndex[2]].startsWith("\"")) {
+                        line = reader.readLine();
+                        continue;
+                    }
+
+                    int votes = Integer.parseInt(splitter[possibleIndex[0]]);
+                    double rating = Double.parseDouble(splitter[possibleIndex[1]]);
+
+                    String title = "";
+                    for (int i = possibleIndex[2]; i < splitter.length; i++) {
+                        if (splitter[i].startsWith("(")) {
+                            break;
+                        }
+                        if (i != splitter.length - 1) {
+                            title += splitter[i] + " ";
+                        }
+                    }
+                    if (!title.equals("")) {
+                        title = title.substring(0, title.length() - 1);
+                    }
+                    int yearIndex = splitter.length - 1;
+
+                    if (splitter[yearIndex].length() < 5) {
+                        yearIndex -= 1;
+                    }
+
+                    String yearString = splitter[yearIndex].substring(1, 5);
+
+                    if(yearString.equals("????"))
+                    {
+                        yearString = "0000";
+                    }
+                    title += " " + splitter[yearIndex];
+                    int year = Integer.parseInt(yearString);
+                    for(int i = 0; i < movies.size(); i++)
+                    {
+                        if(movies.get(i).getTitle().equals(title)) {
+                            movies.get(i).setRating(rating);
+                            break;
+                        }
+
+                    }
+                    line = reader.readLine();
+                }
+
+//            System.out.println("Count: " + count);
+//            System.out.println("Skipped: " + skipped);
+            }
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                reader.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }

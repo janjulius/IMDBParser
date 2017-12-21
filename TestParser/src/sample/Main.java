@@ -31,6 +31,7 @@ public class Main extends Application {
         model.printMovies();
         parser.parseRunningTimes();
         parser.parseBusiness();
+        parser.parseMovieRatings(model.getMovies());
     }
 
 

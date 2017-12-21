@@ -58,4 +58,8 @@ public class Model {
 
         writer.close();
     }
+
+    public ArrayList<Movie> getMovies() {
+        return movies;
+    }
 }
