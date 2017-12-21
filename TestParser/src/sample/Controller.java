@@ -10,5 +10,7 @@ public class Controller {
 
     public void addMovie(String title, int year){ this.model.addMovie(title, year);}
 
-    public void addCountry(String title, String country){this.model.addCountry(title, country);}
+    public boolean addCountry(String title, String country, int count){
+        return this.model.addCountry(title, country, count);
+    }
 }

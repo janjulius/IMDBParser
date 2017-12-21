@@ -1,6 +1,7 @@
 package sample;
 
 import java.io.BufferedReader;
+import java.util.Date;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
@@ -70,12 +71,15 @@ public class Parser {
         BufferedReader reader = new BufferedReader(fr);
 
         int count = 0;
+
         int skipped = 0;
 
         try {
             String line = reader.readLine();
             while (line != null) {
-                if(count >= 5000) break;
+                if(count >= 5000) {
+                    break;
+                }
                 if(line.startsWith("\"")) {
                     line = reader.readLine();
                 }
@@ -88,8 +92,9 @@ public class Parser {
                         title = title.substring(0, country);
 
                         System.out.print(count);
-                        this.controller.addCountry(title, countryString);
-                        count++;
+                        if(this.controller.addCountry(title, countryString, count)){
+                            count++;
+                        }
                     }
 
                     line = reader.readLine();
