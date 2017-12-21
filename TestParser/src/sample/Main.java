@@ -29,6 +29,8 @@ public class Main extends Application {
         long endTime = System.currentTimeMillis();
         System.out.print(endTime - startTime);
         model.printMovies();
+        parser.parseRunningTimes();
+        parser.parseBusiness();
     }
 
 

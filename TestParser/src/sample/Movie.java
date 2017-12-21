@@ -7,6 +7,7 @@ public class Movie {
     private String title;
     private int year;
     private String country;
+    private int runningTime;
 
 
     public Movie(String title, int year, String country){
@@ -24,4 +25,10 @@ public class Movie {
     public String getCountry() { return country; }
 
     public void addCountry(String country) { this.country = country; }
+
+    public int getYear(){
+        return this.year;
+    }
+
+    public void setRunningTime(int r){ runningTime = r;}
 }

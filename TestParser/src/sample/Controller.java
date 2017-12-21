@@ -13,4 +13,7 @@ public class Controller {
     public boolean addCountry(String title, String country, int count){
         return this.model.addCountry(title, country, count);
     }
+    public void addRunningTime(String title, int runningTime){
+        model.setMovieRunningTime(title, runningTime);
+    }
 }
