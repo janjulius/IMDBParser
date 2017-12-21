@@ -24,6 +24,10 @@ public class Main extends Application {
         Parser parser = new Parser(controller);
 
         parser.parseMovie();
+        long startTime = System.currentTimeMillis();
+        parser.parseCountries();
+        long endTime = System.currentTimeMillis();
+        System.out.print(endTime - startTime);
         model.printMovies();
     }
 

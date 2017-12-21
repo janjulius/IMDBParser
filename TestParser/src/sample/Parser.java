@@ -1,6 +1,7 @@
 package sample;
 
 import java.io.BufferedReader;
+import java.util.Date;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
@@ -15,7 +16,7 @@ public class Parser {
     }
 
     public void parseMovie() throws IOException {
-        FileReader fr = new FileReader("C:\\Users\\JDV\\Desktop\\Jaar2P2imdbdata\\movies.list");
+        FileReader fr = new FileReader("C:\\Users\\lars-\\Documents\\School\\Periode 2\\Big Movie\\data\\movies.list");
         BufferedReader reader = new BufferedReader(fr);
 
         int count = 0;
@@ -34,7 +35,7 @@ public class Parser {
                     if (yearSep > 0){
                         String title = line.substring( 0, yearSep ).trim();
                         String yearString = line.substring( yearSep ).trim();
-                        title = title.substring(0, title.indexOf('('));
+                        title = title.substring(0, yearSep);
 //                        if ( yearString.length() > 4 )
 //                        {
 //                            yearString = yearString.substring( 0, 4 );
@@ -64,4 +65,60 @@ public class Parser {
             }
         }
     }
+
+    public void parseCountries() throws IOException {
+        FileReader fr = new FileReader("C:\\Users\\lars-\\Documents\\School\\Periode 2\\Big Movie\\data\\countries.list");
+        BufferedReader reader = new BufferedReader(fr);
+
+        int count = 0;
+
+        int skipped = 0;
+
+        try {
+            String line = reader.readLine();
+            while (line != null) {
+                if(count >= 5000) {
+                    break;
+                }
+                if(line.startsWith("\"")) {
+                    line = reader.readLine();
+                }
+                else{
+                    int country = line.indexOf( '\t' );
+
+                    if (country > 0){
+                        String title = line.substring( 0, country ).trim();
+                        String countryString = line.substring( country ).trim();
+                        title = title.substring(0, country);
+
+                        System.out.print(count);
+                        if(this.controller.addCountry(title, countryString, count)){
+                            count++;
+                        }
+                    }
+
+                    line = reader.readLine();
+                }
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                reader.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public boolean tryParseInt(String value) {
+        try {
+            Integer.parseInt(value);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
 }

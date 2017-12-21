@@ -6,18 +6,22 @@ public class Movie {
 
     private String title;
     private int year;
+    private String country;
 
 
-    public Movie(String title, int year){
+    public Movie(String title, int year, String country){
         this.title = title;
         this.year = year;
+        this.country = "unknown";
     }
 
     public String getTitle(){
-        return this.title;
+        return title;
     }
 
-    public int getYear(){
-        return this.year;
-    }
+    public int getYear() { return year; }
+
+    public String getCountry() { return country; }
+
+    public void addCountry(String country) { this.country = country; }
 }
