@@ -8,23 +8,29 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.FileReader;
+import java.time.Duration;
+import java.time.ZonedDateTime;
 import java.util.Scanner;
 
 public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("sample.fxml"));
+        Parent root = (Parent) fxmlLoader.load();
+        ViewController view = (ViewController) fxmlLoader.getController();
         primaryStage.setTitle("Parser");
-        primaryStage.setScene(new Scene(root, 300, 275));
+        primaryStage.setScene(new Scene(root));
         primaryStage.show();
 
         Model model = new Model();
-        Controller controller = new Controller(model);
+        Controller controller = new Controller(model, view);
         Parser parser = new Parser(controller);
+        controller.view.setProgressBar(0);
 
-        parser.parseMovie();
-        model.printMovies();
+//        parser.parseActor();
+//        parser.parseActress();
+//        model.printActors();
     }
 
 
