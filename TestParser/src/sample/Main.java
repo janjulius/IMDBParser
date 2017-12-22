@@ -26,6 +26,9 @@ public class Main extends Application {
         Model model = new Model();
         Controller controller = new Controller(model, view);
         Parser parser = new Parser(controller);
+
+
+
         controller.view.setProgressBar(0);
     }
 

@@ -13,8 +13,4 @@ public class Business {
         profits = p;
         startEndDate = sed;
     }
-
-
-
-
 }

@@ -18,7 +18,7 @@
       <RowConstraints />
    </rowConstraints>
    <children>
-      <AnchorPane prefHeight="423.0" prefWidth="576.0">
+      <AnchorPane prefHeight="482.0" prefWidth="314.0">
          <children>
             <MenuBar layoutY="2.0" prefHeight="25.0" prefWidth="576.0">
               <menus>
@@ -39,8 +39,18 @@
                 </Menu>
               </menus>
             </MenuBar>
-            <Button fx:id="actorparseButton" layoutY="27.0" mnemonicParsing="false" onAction="#actorParseButton" prefHeight="119.0" prefWidth="205.0" text="Button" />
-            <ProgressBar fx:id="progressbarActor" layoutX="3.0" layoutY="146.0" prefWidth="200.0" progress="0.0" />
+            <Button layoutY="27.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="200.0" text="Parse Movies" />
+            <ProgressBar layoutY="127.0" prefHeight="18.0" prefWidth="200.0" progress="0.0" />
+            <Button fx:id="actorparseButton" layoutY="145.0" mnemonicParsing="false" onAction="#actorParseButton" prefHeight="100.0" prefWidth="200.0" text="Parse Actors" />
+            <ProgressBar fx:id="progressbarActor" layoutY="245.0" prefHeight="18.0" prefWidth="200.0" progress="0.0" />
+            <Button layoutY="263.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="200.0" text="Parse Buisiness" />
+            <ProgressBar layoutY="363.0" prefWidth="200.0" progress="0.0" />
+            <Button layoutY="381.0" mnemonicParsing="false" prefHeight="83.0" prefWidth="200.0" text="Parse Running Times" />
+            <ProgressBar layoutY="464.0" prefWidth="200.0" progress="0.0" />
+            <Button layoutX="376.0" layoutY="27.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="200.0" text="Parse Ratings" />
+            <ProgressBar layoutX="376.0" layoutY="127.0" prefWidth="200.0" progress="0.0" />
+            <Button layoutX="376.0" layoutY="145.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="200.0" text="Parse Countries" />
+            <ProgressBar layoutX="376.0" layoutY="245.0" prefWidth="200.0" progress="0.0" />
          </children>
       </AnchorPane>
    </children>

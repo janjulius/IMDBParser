@@ -12,9 +12,11 @@ import java.util.Scanner;
 
 import Constants.*;
 
-public class Parser {
+public class Parser{
 
     Controller controller;
+    int actorProgress = 0;
+    int actorTotalCount = 22666969;
 
     public final int
             ACTORS_LIST = 0,
@@ -25,7 +27,6 @@ public class Parser {
             MOVIES_LIST = 5,
             RATINGS_LIST = 6,
             RUNNINGTIMES_LIST = 7;
-
 
     public Parser(Controller controller){
         this.controller = controller;
@@ -83,8 +84,14 @@ public class Parser {
         }
     }
 
+    public void updateActorBar(){
+        while (actorProgress >= 0){
+            this.controller.view.setProgressBar(actorProgress/actorTotalCount);
+        }
+    }
+
     public void parseActor() throws IOException {
-        FileReader fr = new FileReader("C:\\Users\\JDV\\Desktop\\Jaar2P2imdbdata\\actors.list");
+        FileReader fr = new FileReader(Constants.dir + Constants.data[ACTORS_LIST]);
         BufferedReader reader = new BufferedReader(fr);
         String originalLine;
         int skipCounter = 0;
@@ -92,8 +99,7 @@ public class Parser {
         String lastName;
         String movieName;
         Actor a = new Actor("", "", "", "");
-        int progresscount = 0;
-        int totalCount = 22666969;
+        actorProgress = 0;
 
         try {
             String line = reader.readLine();
@@ -117,19 +123,19 @@ public class Parser {
                             this.controller.addActor("m", firstName, "", "");
 
                         }
-                        progresscount++;
-                        this.controller.view.setProgressBar(progresscount / totalCount);
+                        actorProgress++;
+//                        this.controller.view.setProgressBar(progresscount / totalCount);
                         line = reader.readLine();
                     } else if (line.isEmpty() || line.contains("\"")) {
-                        progresscount++;
-                        this.controller.view.setProgressBar(progresscount / totalCount);
+                        actorProgress++;
+//                        this.controller.view.setProgressBar(progresscount / totalCount);
                         line = reader.readLine();
                     } else {
                         line = line.substring(0, line.indexOf(')') + 1);
                         movieName = line.trim();
                         a.addMovie(movieName);
-                        progresscount++;
-                        this.controller.view.setProgressBar(progresscount / totalCount);
+
+//                        this.controller.view.setProgressBar(progresscount / totalCount);
                         line = reader.readLine();
                     }
                 } else {
@@ -142,6 +148,64 @@ public class Parser {
             e.printStackTrace();
         } finally {
             try {
+                actorProgress = -1;
+                reader.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void parseActress() throws IOException {
+        FileReader fr = new FileReader(Constants.dir + Constants.data[ACTRESS_LIST]);
+        BufferedReader reader = new BufferedReader(fr);
+        String originalLine;
+        int skipCounter = 0;
+        String firstName;
+        String lastName;
+        String movieName;
+        Actor a = new Actor("", "", "", "");
+
+        try {
+            String line = reader.readLine();
+            while (line != null && !line.contains("SUBMITTING UPDATES")) {
+                if (skipCounter > 238) {
+                    if (line.contains(",") && !Character.isWhitespace(line.charAt(0))) {
+                        originalLine = line;
+                        line = line.substring(0, line.indexOf('\t')).trim();
+
+                        if (line.contains(",")) {
+                            lastName = line.substring(0, line.indexOf(','));
+                            firstName = line.substring((line.indexOf(',') + 1)).trim();
+
+                            int derp = originalLine.indexOf(firstName) + firstName.length();
+                            String movieLine = originalLine.substring(derp);
+                            movieName = movieLine.substring(0, (movieLine.indexOf(')') + 1)).trim();
+
+                            a = this.controller.addActor("f", firstName, lastName, movieName);
+                        } else {
+                            firstName = line.substring(0);
+                            this.controller.addActor("f", firstName, "", "");
+
+                        }
+                        line = reader.readLine();
+                    } else if (line.isEmpty() || line.contains("\"")) {
+                        line = reader.readLine();
+                    } else {
+                        line = line.substring(0, line.indexOf(')') + 1);
+                        movieName = line.trim();
+                        a.addMovie(movieName);
+                        line = reader.readLine();
+                    }
+                } else {
+                    skipCounter++;
+                    line = reader.readLine();
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
                 reader.close();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -150,7 +214,7 @@ public class Parser {
     }
 
     public void parseCountries() throws IOException {
-        FileReader fr = new FileReader("C:\\Users\\lars-\\Documents\\School\\Periode 2\\Big Movie\\data\\countries.list");
+        FileReader fr = new FileReader(Constants.dir + Constants.data[COUNTRIES_LIST]);
         BufferedReader reader = new BufferedReader(fr);
 
         int count = 0;
@@ -233,73 +297,6 @@ public class Parser {
         }
     }
 
-    public void parseActress() throws IOException {
-        FileReader fr = new FileReader("C:\\Users\\JDV\\Desktop\\Jaar2P2imdbdata\\actresses.list");
-        BufferedReader reader = new BufferedReader(fr);
-        String originalLine;
-        int skipCounter = 0;
-        String firstName;
-        String lastName;
-        String movieName;
-        Actor a = new Actor("", "", "", "");
-
-        try {
-            String line = reader.readLine();
-            while (line != null && !line.contains("SUBMITTING UPDATES")) {
-                if (skipCounter > 238) {
-                    if (line.contains(",") && !Character.isWhitespace(line.charAt(0))) {
-                        originalLine = line;
-                        line = line.substring(0, line.indexOf('\t')).trim();
-
-                        if (line.contains(",")) {
-                            lastName = line.substring(0, line.indexOf(','));
-                            firstName = line.substring((line.indexOf(',') + 1)).trim();
-
-                            int derp = originalLine.indexOf(firstName) + firstName.length();
-                            String movieLine = originalLine.substring(derp);
-                            movieName = movieLine.substring(0, (movieLine.indexOf(')') + 1)).trim();
-
-                            a = this.controller.addActor("f", firstName, lastName, movieName);
-                        } else {
-                            firstName = line.substring(0);
-                            this.controller.addActor("f", firstName, "", "");
-
-                        }
-                        line = reader.readLine();
-                    } else if (line.isEmpty() || line.contains("\"")) {
-                        line = reader.readLine();
-                    } else {
-                        line = line.substring(0, line.indexOf(')') + 1);
-                        movieName = line.trim();
-                        a.addMovie(movieName);
-                        line = reader.readLine();
-                    }
-                } else {
-                    skipCounter++;
-                    line = reader.readLine();
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                reader.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-
-    public boolean tryParseInt(String value) {
-        try {
-            Integer.parseInt(value);
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
-        }
-    }
-
     /**
      * Parses the runningtimes.list
      * @throws IOException
@@ -349,7 +346,7 @@ public class Parser {
     }
 
     public void parseMovieRatings(ArrayList<Movie> movies) throws IOException {
-        FileReader fr = new FileReader("C:\\Users\\muize\\Downloads\\ratings\\ratings.list");
+        FileReader fr = new FileReader(Constants.dir + Constants.data[RATINGS_LIST]);
         BufferedReader reader = new BufferedReader(fr);
         int count = 0;
         int skipped = 0;
@@ -443,6 +440,15 @@ public class Parser {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    public boolean tryParseInt(String value) {
+        try {
+            Integer.parseInt(value);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
         }
     }
 }

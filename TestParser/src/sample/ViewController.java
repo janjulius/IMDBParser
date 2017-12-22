@@ -22,16 +22,29 @@ public class ViewController {
     }
 
     @FXML
-    public void actorParseButton(){
+    public void actorParseButton() throws IOException{
         controller.view.setProgressBar(0);
         ZonedDateTime dt = ZonedDateTime.now();
-        try{
-            this.controller.parser.parseActor();
+
+        try {
+            new Thread(() ->
+            {
+                try{
+                    this.controller.parser.parseActor();
+                    ZonedDateTime dt2 = ZonedDateTime.now();
+                    System.out.println(String.format("Parsed list in %s seconds", Duration.between(dt, dt2).getSeconds()));
+                }
+                catch(IOException e){
+                    throw new RuntimeException();
+                }
+            }).start();
         }
-        catch (IOException e) {
-            e.printStackTrace();
+        catch(RuntimeException e){
+            if(e.getCause() instanceof IOException){
+//                throw e.getCause();
+            }
+            else
+                throw e;
         }
-        ZonedDateTime dt2 = ZonedDateTime.now();
-        System.out.println(String.format("Parsed list in %s seconds", Duration.between(dt, dt2).getSeconds()));
     }
 }
