@@ -32,4 +32,19 @@ public class Movie {
     public void setRunningTime(int r){ runningTime = r;}
 
     public void setRating(double rating) { this.rating = rating;}
+
+    public StringBuilder Append(StringBuilder sb)
+    {
+        sb.append(title);
+        sb.append(',');
+        sb.append(Integer.toString(year));
+        sb.append(',');
+        sb.append(country);
+        sb.append(',');
+        sb.append(Integer.toString(runningTime));
+        sb.append(',');
+        sb.append(Double.toString(rating));
+        sb.append(',');
+        return sb;
+    }
 }

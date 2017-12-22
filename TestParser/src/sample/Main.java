@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.time.Duration;
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main extends Application {
@@ -26,7 +27,7 @@ public class Main extends Application {
         Model model = new Model();
         Controller controller = new Controller(model, view);
         Parser parser = new Parser(controller);
-
+        controller.writeCsv(model.getMovies());
 
 
         controller.view.setProgressBar(0);

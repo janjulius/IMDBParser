@@ -351,8 +351,6 @@ public class Parser{
         FileReader fr = new FileReader(Constants.dir + Constants.data[RATINGS_LIST]);
 
         BufferedReader reader = new BufferedReader(fr);
-        int count = 0;
-        int skipped = 0;
         boolean dataReached = false;
 
         try {
@@ -360,7 +358,7 @@ public class Parser{
 
             while(line != null) {
                 while (!dataReached) {
-                    if (line.startsWith("MOVIE RATINGS REPORT")) {
+                    if (line.startsWith("MOVIE RATINGS REPORT")) { //Hier in de ratings file begint de data die we nodig hebben.
                         dataReached = true;
                     } else {
                         line = reader.readLine();
@@ -368,71 +366,56 @@ public class Parser{
                 }
                 if (line.startsWith("---"))
                 {
-                    break;
+                    break; //Het einde van de data
                 }
                 if (!line.startsWith("     ")) {
-//                    skipped++;
-                    line = reader.readLine();
+                    line = reader.readLine(); //controle of de line wel echt movie data bevat, alle lines die hiermee beginnen doen dat.
                 }
                 else {
-//                    count++;
-                    String[] splitter = line.split(" ");
+                    String[] splitter = line.split(" "); //elke line word gesplit op spaties.
                     int[] possibleIndex = new int[3];
                     int index = 0;
                     for (int i = 7; i < splitter.length; i++) {
                         if (index < 3) {
                             if (!splitter[i].equals("")) {
-                                possibleIndex[index] = i;
+                                possibleIndex[index] = i; //De juiste indices voor de data worden gezocht.
                                 index++;
                             }
                         }
                     }
 
                     if (splitter[possibleIndex[2]].startsWith("\"")) {
-                        line = reader.readLine();
+                        line = reader.readLine(); //Als de titel met een '' begint, is dit een serie. Wij nemen series niet op in een tabel dus die skippen we.
                         continue;
                     }
 
-                    int votes = Integer.parseInt(splitter[possibleIndex[0]]);
-                    double rating = Double.parseDouble(splitter[possibleIndex[1]]);
+                    double rating = Double.parseDouble(splitter[possibleIndex[1]]); //De tweede entry in de splitter bevat de rating.
 
                     String title = "";
                     for (int i = possibleIndex[2]; i < splitter.length; i++) {
                         if (splitter[i].startsWith("(")) {
                             break;
                         }
-                        if (i != splitter.length - 1) {
-                            title += splitter[i] + " ";
-                        }
+                            title += splitter[i] + " "; //Totdat er een "(" word gevonden word elk woord van de title aan de title-variable toegevoegd.
                     }
                     if (!title.equals("")) {
-                        title = title.substring(0, title.length() - 1);
+                        title = title.substring(0, title.length() - 1); //De laatste spatie wordt verwijderd.
                     }
                     int yearIndex = splitter.length - 1;
 
-                    if (splitter[yearIndex].length() < 5) {
-                        yearIndex -= 1;
+                    while (splitter[yearIndex].length() != 6) {
+                        yearIndex -= 1; //splitter[yearIndex] moet grootte 6 zijn, aangezien het uit een viercijferig getal en twee haakjes bestaat, is deze grootte niet 6 word er gezocht naar de juiste index.
                     }
-
-                    String yearString = splitter[yearIndex].substring(1, 5);
-
-                    if(yearString.equals("????"))
-                    {
-                        yearString = "0000";
-                    }
-                    title += " " + splitter[yearIndex];
-                    int year = Integer.parseInt(yearString);
+                    title += " " + splitter[yearIndex]; //Het jaartal wordt aan de title toegevoegd
                     for(int i = 0; i < movies.size(); i++)
                     {
                         if(movies.get(i).getTitle().equals(title)) {
-                            movies.get(i).setRating(rating);
+                            movies.get(i).setRating(rating); //rating wordt aangepast als de titles gelijk zijn.
                             break;
                         }
                     }
                     line = reader.readLine();
                 }
-//            System.out.println("Count: " + count);
-//            System.out.println("Skipped: " + skipped);
             }
         }
         catch (IOException e) {
