@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import Constants.*;
+import jdk.vm.ci.meta.Constant;
 
 public class Parser {
 
@@ -84,7 +85,7 @@ public class Parser {
     }
 
     public void parseActor() throws IOException {
-        FileReader fr = new FileReader("C:\\Users\\JDV\\Desktop\\Jaar2P2imdbdata\\actors.list");
+        FileReader fr = new FileReader(Constants.dir + Constants.data[ACTORS_LIST]);
         BufferedReader reader = new BufferedReader(fr);
         String originalLine;
         int skipCounter = 0;
@@ -150,7 +151,7 @@ public class Parser {
     }
 
     public void parseCountries() throws IOException {
-        FileReader fr = new FileReader("C:\\Users\\lars-\\Documents\\School\\Periode 2\\Big Movie\\data\\countries.list");
+        FileReader fr = new FileReader(Constants.dir + Constants.data[COUNTRIES_LIST]);
         BufferedReader reader = new BufferedReader(fr);
 
         int count = 0;
@@ -195,6 +196,7 @@ public class Parser {
         }
     }
 
+    //TODO
     public void parseBusiness() throws IOException {
         FileReader fr = new FileReader(Constants.dir + Constants.data[BUSINESS_LIST]);
         BufferedReader reader = new BufferedReader(fr);
@@ -234,7 +236,7 @@ public class Parser {
     }
 
     public void parseActress() throws IOException {
-        FileReader fr = new FileReader("C:\\Users\\JDV\\Desktop\\Jaar2P2imdbdata\\actresses.list");
+        FileReader fr = new FileReader(Constants.dir + Constants.data[ACTRESS_LIST]);
         BufferedReader reader = new BufferedReader(fr);
         String originalLine;
         int skipCounter = 0;
@@ -321,9 +323,9 @@ public class Parser {
 
                         title = title.substring(0, sepIndex).trim();
 
-                        if(timeRunning.contains("(") || timeRunning.contains(")")){
+                        if(timeRunning.contains("(") || timeRunning.contains(")"))
                             timeRunning = timeRunning.replaceAll("\\(.*\\)", ""); //replace anything within () with nothing
-                        }
+
                         timeRunning = timeRunning.replaceAll("[^\\d]", "").trim(); //remove any non number character and trim
 
                         int parsedrtInt = Integer.parseInt(timeRunning);
@@ -349,7 +351,7 @@ public class Parser {
     }
 
     public void parseMovieRatings(ArrayList<Movie> movies) throws IOException {
-        FileReader fr = new FileReader("C:\\Users\\muize\\Downloads\\ratings\\ratings.list");
+        FileReader fr = new FileReader(Constants.dir + Constants.data[MOVIES_LIST]);
         BufferedReader reader = new BufferedReader(fr);
         int count = 0;
         int skipped = 0;
