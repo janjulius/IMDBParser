@@ -12,8 +12,13 @@ public class Controller {
         view.injectController(this);
     }
 
-    public void addMovie(String title, int year){
-        this.model.addMovie(title, year);
+    public void addMovie(String title, int year){ this.model.addMovie(title, year);}
+
+    public boolean addCountry(String title, String country, int count){
+        return this.model.addCountry(title, country, count);
+    }
+    public void addRunningTime(String title, int runningTime){
+        model.setMovieRunningTime(title, runningTime);
     }
     public Actor addActor(String gender, String firstname, String lastname, String movie) {
             Actor a = this.model.addActor(gender, firstname, lastname, movie);
