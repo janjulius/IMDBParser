@@ -84,6 +84,7 @@ public class Parser{
         }
     }
 
+    // Work in progress
     public void updateActorBar(){
         while (actorProgress >= 0){
             this.controller.view.setProgressBar(actorProgress/actorTotalCount);
@@ -259,6 +260,7 @@ public class Parser{
         }
     }
 
+    //TODO
     public void parseBusiness() throws IOException {
         FileReader fr = new FileReader(Constants.dir + Constants.data[BUSINESS_LIST]);
         BufferedReader reader = new BufferedReader(fr);
@@ -318,9 +320,9 @@ public class Parser{
 
                         title = title.substring(0, sepIndex).trim();
 
-                        if(timeRunning.contains("(") || timeRunning.contains(")")){
+                        if(timeRunning.contains("(") || timeRunning.contains(")"))
                             timeRunning = timeRunning.replaceAll("\\(.*\\)", ""); //replace anything within () with nothing
-                        }
+
                         timeRunning = timeRunning.replaceAll("[^\\d]", "").trim(); //remove any non number character and trim
 
                         int parsedrtInt = Integer.parseInt(timeRunning);
@@ -347,6 +349,7 @@ public class Parser{
 
     public void parseMovieRatings(ArrayList<Movie> movies) throws IOException {
         FileReader fr = new FileReader(Constants.dir + Constants.data[RATINGS_LIST]);
+
         BufferedReader reader = new BufferedReader(fr);
         int count = 0;
         int skipped = 0;
