@@ -226,7 +226,6 @@ public class Parser {
             e.printStackTrace();
         } finally {
             try {
-                System.out.println(progresscount);
                 reader.close();
             } catch (IOException e) {
                 e.printStackTrace();

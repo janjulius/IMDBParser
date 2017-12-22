@@ -41,15 +41,17 @@ public class Model {
         return this.movies;
     }
 
-    public void printActors(){
+    public void printActors() {
         count = 0;
-        for (Actor a : actors){
+        for (Actor a : actors) {
 //            if (count < 500) {
-                for (String mName : a.getMovies()) {
-                    System.out.println(a.getFirstName() + " " + a.getLastName() + " (" + a.getGender() + ")" + " - " + mName);
-                }
+            for (String mName : a.getMovies()) {
+                System.out.println(a.getFirstName() + " " + a.getLastName() + " (" + a.getGender() + ")" + " - " + mName);
+            }
 //                count++;
 //            }
+        }
+    }
 
     public boolean addCountry(String title, String country, int count){
         for(int i = 0; i < movies.size(); i++){

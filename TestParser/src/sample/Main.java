@@ -29,7 +29,6 @@ public class Main extends Application {
         controller.view.setProgressBar(0);
     }
 
-
     public static void main(String[] args) {
         launch(args);
     }

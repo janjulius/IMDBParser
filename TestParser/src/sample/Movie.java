@@ -21,8 +21,6 @@ public class Movie {
         return title;
     }
 
-    public int getYear() { return year; }
-
     public String getCountry() { return country; }
 
     public void addCountry(String country) { this.country = country; }
