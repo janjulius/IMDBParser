@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.time.Duration;
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main extends Application {
@@ -34,6 +35,8 @@ public class Main extends Application {
 
         // Initialize some values
         controller.setup();
+
+//        controller.writeCsv(model.getMovies());
     }
 
     public static void main(String[] args) {

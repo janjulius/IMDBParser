@@ -44,11 +44,26 @@ public class Movie {
 
     // Hashmap
     @Override
-    public boolean equals(Object other){
+    public boolean equals(Object other) {
         if (other == null) return false;
         if (other == this) return true;
         if (!(other instanceof Movie)) return false;
-        Movie otherMovie = (Movie)other;
+        Movie otherMovie = (Movie) other;
         return this.hashCode() == otherMovie.hashCode();
     }
+
+//    public StringBuilder Append(StringBuilder sb)
+//    {
+//        sb.append(title);
+//        sb.append(',');
+//        sb.append(Integer.toString(year));
+//        sb.append(',');
+//        sb.append(country);
+//        sb.append(',');
+//        sb.append(Integer.toString(runningTime));
+//        sb.append(',');
+//        sb.append(Double.toString(rating));
+//        sb.append(',');
+//        return sb;
+//    }
 }
