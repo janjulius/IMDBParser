@@ -32,6 +32,8 @@ public class Movie {
         return this.rating;
     }
 
+    public int getRunningTime() { return this.runningTime; }
+
     public void setRunningTime(int r){ runningTime = r;}
 
     public void setRating(double rating) { this.rating = rating;}
@@ -51,19 +53,19 @@ public class Movie {
         Movie otherMovie = (Movie) other;
         return this.hashCode() == otherMovie.hashCode();
     }
-
-//    public StringBuilder Append(StringBuilder sb)
-//    {
-//        sb.append(title);
-//        sb.append(',');
-//        sb.append(Integer.toString(year));
-//        sb.append(',');
-//        sb.append(country);
-//        sb.append(',');
-//        sb.append(Integer.toString(runningTime));
-//        sb.append(',');
-//        sb.append(Double.toString(rating));
-//        sb.append(',');
-//        return sb;
-//    }
+/*
+  public StringBuilder Append(StringBuilder sb)
+    {
+        sb.append(title);
+        sb.append(',');
+        sb.append(Integer.toString(year));
+        sb.append(',');
+        sb.append(country);
+        sb.append(',');
+        sb.append(Integer.toString(runningTime));
+        sb.append(',');
+        sb.append(Double.toString(rating));
+        sb.append(',');
+        return sb;
+    } */
 }

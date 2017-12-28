@@ -36,7 +36,7 @@ public class Main extends Application {
         // Initialize some values
         controller.setup();
 
-//        controller.writeCsv(model.getMovies());
+
     }
 
     public static void main(String[] args) {

@@ -346,19 +346,12 @@ public class Parser{
                     }
                     int yearIndex = splitter.length - 1;
 
-                    while (splitter[yearIndex].length() != 6) {
+                    while (splitter[yearIndex].length() < 6) {
+
                         yearIndex -= 1; //splitter[yearIndex] moet grootte 6 zijn, aangezien het uit een viercijferig getal en twee haakjes bestaat, is deze grootte niet 6 word er gezocht naar de juiste index.
                     }
 
-                    String yearString = splitter[yearIndex].substring(1, 5);
-
-                    if(yearString.equals("????"))
-                    {
-                        yearString = "0000";
-                    }
-                    title += " " + splitter[yearIndex];
-                    int year = Integer.parseInt(yearString);
-                    title += " " + splitter[yearIndex]; //Het jaartal wordt aan de title toegevoegd
+                    title += " " + splitter[yearIndex].substring(0, 6); //Het jaartal wordt aan de title toegevoegd
 
                     // Search the movie hashmap for the corresponding movie, do a nullcheck and add rating
                     Movie mov = controller.model.returnMovie(title);

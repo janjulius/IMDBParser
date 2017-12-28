@@ -40,6 +40,7 @@ public class ViewController {
     @FXML Button parseRunningTimesButton;
     @FXML Button parseRatingsButton;
     @FXML Button parseCountriesButton;
+    //@FXML Button writeCsvButton;
 
     // Certain lists shouldn't be parsed if other lists haven't been parsed yet.
     public void setup(){
@@ -47,6 +48,7 @@ public class ViewController {
         parseRunningTimesButton.setDisable(true);
         parseRatingsButton.setDisable(true);
         parseCountriesButton.setDisable(true);
+//        writeCsvButton.setDisable(true);
     }
 
     public void setProgressBar(double value){
@@ -174,4 +176,9 @@ public class ViewController {
         System.out.println(String.format("Parsed list in %s seconds", Duration.between(dt, dt2).getSeconds()));
         parseCountriesButton.setDisable(true);
     }
+
+  //  @FXML
+    //public void writeCsvButton() throws IOException{
+    //    controller.writeCsv(controller.model.returnMovieHash());
+  //  }
 }

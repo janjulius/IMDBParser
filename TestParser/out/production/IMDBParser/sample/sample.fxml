@@ -39,18 +39,18 @@
                 </Menu>
               </menus>
             </MenuBar>
-            <Button layoutY="27.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="200.0" text="Parse Movies" />
-            <ProgressBar layoutY="127.0" prefHeight="18.0" prefWidth="200.0" progress="0.0" />
-            <Button fx:id="actorparseButton" layoutY="145.0" mnemonicParsing="false" onAction="#actorParseButton" prefHeight="100.0" prefWidth="200.0" text="Parse Actors" />
-            <ProgressBar fx:id="progressbarActor" layoutY="245.0" prefHeight="18.0" prefWidth="200.0" progress="0.0" />
-            <Button layoutY="263.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="200.0" text="Parse Buisiness" />
-            <ProgressBar layoutY="363.0" prefWidth="200.0" progress="0.0" />
-            <Button layoutY="381.0" mnemonicParsing="false" prefHeight="83.0" prefWidth="200.0" text="Parse Running Times" />
-            <ProgressBar layoutY="464.0" prefWidth="200.0" progress="0.0" />
-            <Button layoutX="376.0" layoutY="27.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="200.0" text="Parse Ratings" />
-            <ProgressBar layoutX="376.0" layoutY="127.0" prefWidth="200.0" progress="0.0" />
-            <Button layoutX="376.0" layoutY="145.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="200.0" text="Parse Countries" />
-            <ProgressBar layoutX="376.0" layoutY="245.0" prefWidth="200.0" progress="0.0" />
+            <Button fx:id="parseMovieButton" layoutY="27.0" mnemonicParsing="false" onAction="#movieParseButton" prefHeight="100.0" prefWidth="200.0" text="Parse Movies" />
+            <ProgressBar fx:id="progressbarMovie" layoutY="127.0" prefHeight="18.0" prefWidth="200.0" progress="0.0" />
+            <Button fx:id="parseActorsButton" layoutY="145.0" mnemonicParsing="false" onAction="#actorParseButton" prefHeight="100.0" prefWidth="200.0" text="Parse Actors" />
+            <ProgressBar fx:id="progressbarActors" layoutY="245.0" prefHeight="18.0" prefWidth="200.0" progress="0.0" />
+            <Button fx:id="parseBusinessButton" layoutY="263.0" mnemonicParsing="false" onAction="#businessParseButton" prefHeight="100.0" prefWidth="200.0" text="Parse Business" />
+            <ProgressBar fx:id="progressbarBusiness" layoutY="363.0" prefWidth="200.0" progress="0.0" />
+            <Button fx:id="parseRunningTimesButton" layoutY="381.0" mnemonicParsing="false" onAction="#runningtimeParseButton" prefHeight="83.0" prefWidth="200.0" text="Parse Running Times" />
+            <ProgressBar fx:id="progressbarRunningTimes" layoutY="464.0" prefWidth="200.0" progress="0.0" />
+            <Button fx:id="parseRatingsButton" layoutX="376.0" layoutY="27.0" mnemonicParsing="false" onAction="#ratingParseButton" prefHeight="100.0" prefWidth="200.0" text="Parse Ratings" />
+            <ProgressBar fx:id="progressbarRating" layoutX="376.0" layoutY="127.0" prefWidth="200.0" progress="0.0" />
+            <Button fx:id="parseCountriesButton" layoutX="376.0" layoutY="145.0" mnemonicParsing="false" onAction="#countryParseButton" prefHeight="100.0" prefWidth="200.0" text="Parse Countries" />
+            <ProgressBar fx:id="progressbarCountries" layoutX="376.0" layoutY="245.0" prefWidth="200.0" progress="0.0" />
          </children>
       </AnchorPane>
    </children>

@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Controller {
 
@@ -35,17 +36,27 @@ public class Controller {
         this.view.setup();
     }
 
-//    public void writeCsv(ArrayList<Movie> movies) throws FileNotFoundException {
-//        PrintWriter pw = new PrintWriter(new File("test.csv"));
-//        StringBuilder sb = new StringBuilder();
-//
-//        for(Movie m : movies)
-//        {
-//            sb = m.Append(sb);
-//        }
-//
-//        pw.write(sb.toString());
-//        pw.close();
-//        System.out.println("done!");
-//    }
+  public void writeCsv(HashMap<String, Movie> movies) throws FileNotFoundException {
+        PrintWriter pw = new PrintWriter(new File("test.csv"));
+        StringBuilder sb = new StringBuilder();
+
+        movies.forEach((String s, Movie m) -> {
+            sb.append(m.getTitle());
+            sb.append(',');
+            sb.append(Integer.toString(m.getYear()));
+            sb.append(',');
+            for(String country : m.getCountries()) {
+                sb.append(country);
+                sb.append(',');
+            }
+            sb.append(Integer.toString(m.getRunningTime()));
+            sb.append(',');
+            sb.append(Double.toString(m.getRating()));
+            sb.append(',');
+        });
+
+        pw.write(sb.toString());
+        pw.close();
+        System.out.println("done!");
+    }
 }
