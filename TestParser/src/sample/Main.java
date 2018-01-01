@@ -35,8 +35,6 @@ public class Main extends Application {
 
         // Initialize some values
         controller.setup();
-
-
     }
 
     public static void main(String[] args) {

@@ -40,7 +40,7 @@ public class ViewController {
     @FXML Button parseRunningTimesButton;
     @FXML Button parseRatingsButton;
     @FXML Button parseCountriesButton;
-    //@FXML Button writeCsvButton;
+    @FXML Button writeCsvButton;
 
     // Certain lists shouldn't be parsed if other lists haven't been parsed yet.
     public void setup(){
@@ -177,8 +177,8 @@ public class ViewController {
         parseCountriesButton.setDisable(true);
     }
 
-  //  @FXML
-    //public void writeCsvButton() throws IOException{
-    //    controller.writeCsv(controller.model.returnMovieHash());
-  //  }
+    @FXML
+    public void writeCsvButton() throws IOException{
+        controller.writeCsv(controller.model.returnMovieHash());
+    }
 }

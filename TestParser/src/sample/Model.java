@@ -45,6 +45,7 @@ public class Model {
         }
         System.out.println("new: " + t); //print new object
     }
+
     public Actor addActor(String gender, String firstname, String lastname, String movie) {
         Actor a = new Actor(gender, firstname, lastname, movie);
         actors.add(a);
