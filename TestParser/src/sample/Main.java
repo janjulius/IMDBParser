@@ -29,6 +29,7 @@ public class Main extends Application {
         Parser parser = new Parser(controller);
         controller.writeCsv(model.getMovies());
 
+        parser.parseBusiness();
 
         controller.view.setProgressBar(0);
     }

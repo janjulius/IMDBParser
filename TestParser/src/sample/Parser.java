@@ -260,7 +260,11 @@ public class Parser{
         }
     }
 
-    //TODO
+    /**
+     * Parses business
+     * @author Jan Julius
+     * @throws IOException
+     */
     public void parseBusiness() throws IOException {
         FileReader fr = new FileReader(Constants.dir + Constants.data[BUSINESS_LIST]);
         BufferedReader reader = new BufferedReader(fr);
@@ -272,18 +276,65 @@ public class Parser{
                     line = reader.readLine();
                 } else {
                     if (line.length() > 0) {
-                        String title;
-                        String profits;
-                        int budget;
-                        String sed; //start end date
-                        if (line.startsWith("MV:")) {
-                            if (line.substring(line.indexOf("MV:") + 4, line.length()).startsWith("\"")) {
-                                line = reader.readLine();
-                            } else {
-                                title = line.replace("MV:", "").trim();
-                                System.out.println(title);
+                        String title = null;
+                        double budget = 0;
+                        double profits = 0;
+                        String sed = null; //start end date
+
+                        boolean foundEnd = false;
+
+                        while(!foundEnd) {
+
+                            line = reader.readLine();
+                            if(line == null){
+                                foundEnd = true;
+                                break;
+                            }
+                            if (line.startsWith("MV:")) {
+
+                                if (line.substring(line.indexOf("MV:") + 4, line.length()).startsWith("\"")) {
+                                    line = reader.readLine();
+                                } else {
+                                    title = line.replace("MV:", "").trim();
+                                    System.out.println(title);
+                                }
+                            }
+
+                            if(line.startsWith("BT:")){
+                                if (line.substring(line.indexOf("BT:") + 4, line.length()).startsWith("\"")) {
+                                    line = reader.readLine();
+                                } else {
+                                    budget = Double.parseDouble(line.replaceAll("[^\\d]", "").trim());
+                                    System.out.println(budget);
+                                }
+                            }
+
+                            if (line.startsWith("GR:")) {
+
+                                if (line.substring(line.indexOf("GR:") + 4, line.length()).startsWith("\"")) {
+                                    line = reader.readLine();
+                                } else {
+
+                                    profits = Double.parseDouble(line.replaceAll("\\(.*\\)", "").replaceAll("[^\\d]", "").trim());
+
+                                    System.out.println(profits);
+                                }
+                            }
+
+                            if (line.startsWith("SD:")) {
+                                if (line.substring(line.indexOf("GR:") + 4, line.length()).startsWith("\"")) {
+                                    line = reader.readLine();
+                                } else {
+                                    sed = line.substring(3, line.length());
+                                    System.out.println(sed);
+                                }
+                            }
+                            else if (line.startsWith("---")){
+                                controller.addBusiness(title, budget, profits, sed);
+                                title = null; budget = 0; profits = 0; sed = null;
                             }
                         }
+
                     }
                     line = reader.readLine();
                 }
@@ -301,6 +352,7 @@ public class Parser{
 
     /**
      * Parses the runningtimes.list
+     * @author Jan Julius
      * @throws IOException
      */
     public void parseRunningTimes() throws IOException {

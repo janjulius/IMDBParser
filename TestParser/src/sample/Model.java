@@ -31,6 +31,25 @@ public class Model {
         }
         System.out.println("new: " + t); //print new object
     }
+
+    public void setBusinesses(String title,
+                              double budget, double profits,
+                              String sed){
+        if(createSeperateTables) {
+            businesses.add(new Business(title, budget, profits, sed));
+        } else {
+
+            Movie m = movies.stream() //stream through movies list
+                    .filter(c -> c.getTitle().equals(title)) //filter the list on wether the c object equals the title t
+                    .findFirst() //find the first that equals the in the filter expression
+                    .orElse(null); //return null if its not there.
+
+            if(m != null)
+                m.setBusinessInfo(budget, profits, sed);
+        }
+        System.out.println("new: " + title); //print new object
+    }
+
     public Actor addActor(String gender, String firstname, String lastname, String movie) {
         Actor a = new Actor(gender, firstname, lastname, movie);
         actors.add(a);

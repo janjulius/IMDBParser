@@ -9,6 +9,9 @@ public class Movie {
     private String country;
     private int runningTime;
     private double rating;
+    private double budget;
+    private double profits;
+    private String sed; //start end date
 
 
     public Movie(String title, int year, String country){
@@ -33,6 +36,12 @@ public class Movie {
 
     public void setRating(double rating) { this.rating = rating;}
 
+    public void setBusinessInfo(double b, double p, String s) {
+        budget = b;
+        profits = p;
+        sed = s;
+    }
+
     public StringBuilder Append(StringBuilder sb)
     {
         sb.append(title);
@@ -47,4 +56,5 @@ public class Movie {
         sb.append(',');
         return sb;
     }
+
 }

@@ -30,6 +30,12 @@ public class Controller {
             return a;
     }
 
+    public void addBusiness(String title,
+            double budget,double profits,
+            String sed){
+        model.setBusinesses(title, budget, profits, sed);
+    }
+
     public void addParser(Parser parser){
         this.parser = parser;
     }
