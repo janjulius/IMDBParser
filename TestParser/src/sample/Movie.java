@@ -6,16 +6,15 @@ public class Movie {
 
     private String title;
     private int year;
-    private String genre;
+    private ArrayList<String> genres = new ArrayList<>();
     private ArrayList<String> countries = new ArrayList<>();
     private int runningTime;
     private double rating;
 
 
-    public Movie(String title, int year, String genre){
+    public Movie(String title, int year){
         this.title = title;
         this.year = year;
-        this.genre = genre;
     }
 
     public String getTitle(){
@@ -30,7 +29,9 @@ public class Movie {
         return this.year;
     }
 
-    public String getGenre(){ return this.genre;}
+    public ArrayList<String> getGenre(){ return genres;}
+
+    public void addGenre(String genre) { genres.add(genre);}
 
     public double getRating(){
         return this.rating;

@@ -69,13 +69,23 @@ public class Parser{
                     } catch (NumberFormatException n) {
                     }
 
-                    if (yearString.equals("????") || yearString.equals("0")){
-                        Movie m = new Movie (title, 0000, genreString);
-                        controller.model.addToHashmap(title2, m);
+
+                    Movie mov = controller.model.returnMovie(title2);
+
+                    if (mov != null){
+                        mov.addGenre(genreString);
                     }
                     else {
-                        Movie m = new Movie (title, year, genreString);
-                        controller.model.addToHashmap(title2, m);
+                        if (yearString.equals("????") || yearString.equals("0")){
+                            Movie m = new Movie (title, 0000);
+                            m.addGenre(genreString);
+                            controller.model.addToHashmap(title2, m);
+                        }
+                        else {
+                            Movie m = new Movie (title, year);
+                            m.addGenre(genreString);
+                            controller.model.addToHashmap(title2, m);
+                        }
                     }
 
                     line = reader.readLine();
