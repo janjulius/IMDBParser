@@ -73,7 +73,7 @@ public class Model {
         PrintWriter writer = new PrintWriter("test.txt", "UTF-8");
 
         for (Movie m : movies){
-            String line = m.getTitle() + " - " + m.getYear();
+            String line = m.getTitle() + " - " + m.getYear()+ " - " + m.getGenre();
             writer.println(line);
             //System.out.println(line);
         }

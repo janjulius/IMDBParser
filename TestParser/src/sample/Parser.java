@@ -39,35 +39,43 @@ public class Parser{
 
         int count = 0;
         int skipped = 0;
+        int year = 0000;
 
         try {
             String line = reader.readLine();
             while (line != null) {
-                if(line.startsWith("\"")) {
-//                    skipped++;
-                    line = reader.readLine();
-                }
+                if (skipped < 384){line = reader.readLine(); skipped++;
+                    if(line.startsWith("\"")) {
+                        line = reader.readLine();
+                    }}
+
                 else{
 //                    count++;
-                    int yearSep = line.indexOf( '\t' );
-                    if (yearSep > 0){
-                        String title = line.substring( 0, yearSep ).trim();
-                        String title2 = line.substring(0, (line.indexOf(")") +1));
-                        String yearString = line.substring( yearSep ).trim();
-                        title = title.substring(0, yearSep);
+                    int yearSep = line.indexOf( '(' );
+                    int genre = line.indexOf( '\t' );
+
+                    String title = line.substring( 0, yearSep ).trim();
+                    String title2 = line.substring(0, (line.indexOf(')') +1));
+                    String yearString = line.substring( (yearSep+1), (yearSep+5) ).trim();
+                    String genreString = line.substring( genre ).trim();
 //                        if ( yearString.length() > 4 )
 //                        {
 //                            yearString = yearString.substring( 0, 4 );
 //                        }
 //                        final int year = Integer.parseInt( yearString );
-                        if (yearString.equals("????")){
-                            Movie m = new Movie(title2, 0000);
-                            controller.model.addToHashmap(title2, m);
-                        }
-                        else {
-                            Movie m = new Movie(title2, 0000);
-                            controller.model.addToHashmap(title2, m);
-                        }
+                    try {
+                        // This throws an exception because the string is invalid.
+                        year = Integer.parseInt(yearString);
+                    } catch (NumberFormatException n) {
+                    }
+
+                    if (yearString.equals("????") || yearString.equals("0")){
+                        Movie m = new Movie (title, 0000, genreString);
+                        controller.model.addToHashmap(title2, m);
+                    }
+                    else {
+                        Movie m = new Movie (title, year, genreString);
+                        controller.model.addToHashmap(title2, m);
                     }
 
                     line = reader.readLine();

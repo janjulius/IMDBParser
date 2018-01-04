@@ -45,6 +45,8 @@ public class Controller {
             sb.append(',');
             sb.append(Integer.toString(m.getYear()));
             sb.append(',');
+            sb.append(m.getGenre());
+            sb.append(',');
             for(String country : m.getCountries()) {
                 sb.append(country);
                 sb.append(',');
