@@ -39,31 +39,52 @@ public class Parser{
 
         int count = 0;
         int skipped = 0;
+        int year = 0000;
 
         try {
             String line = reader.readLine();
             while (line != null) {
-                if(line.startsWith("\"")) {
-//                    skipped++;
-                    line = reader.readLine();
-                }
+                if (skipped < 384){line = reader.readLine(); skipped++;
+                    if(line.startsWith("\"")) {
+                        line = reader.readLine();
+                    }}
+
                 else{
 //                    count++;
-                    int yearSep = line.indexOf( '\t' );
-                    if (yearSep > 0){
-                        String title = line.substring( 0, yearSep ).trim();
-                        String yearString = line.substring( yearSep ).trim();
-                        title = title.substring(0, yearSep);
+                    int yearSep = line.indexOf( '(' );
+                    int genre = line.indexOf( '\t' );
+
+                    String title = line.substring( 0, yearSep ).trim();
+                    String title2 = line.substring(0, (line.indexOf(')') +1));
+                    String yearString = line.substring( (yearSep+1), (yearSep+5) ).trim();
+                    String genreString = line.substring( genre ).trim();
 //                        if ( yearString.length() > 4 )
 //                        {
 //                            yearString = yearString.substring( 0, 4 );
 //                        }
 //                        final int year = Integer.parseInt( yearString );
-                        if (yearString.equals("????")){
-                            this.controller.addMovie(title, 0000);
+                    try {
+                        // This throws an exception because the string is invalid.
+                        year = Integer.parseInt(yearString);
+                    } catch (NumberFormatException n) {
+                    }
+
+
+                    Movie mov = controller.model.returnMovie(title2);
+
+                    if (mov != null){
+                        mov.addGenre(genreString);
+                    }
+                    else {
+                        if (yearString.equals("????") || yearString.equals("0")){
+                            Movie m = new Movie (title, 0000);
+                            m.addGenre(genreString);
+                            controller.model.addToHashmap(title2, m);
                         }
                         else {
-                            this.controller.addMovie(title, Integer.parseInt(yearString));
+                            Movie m = new Movie (title, year);
+                            m.addGenre(genreString);
+                            controller.model.addToHashmap(title2, m);
                         }
                     }
 
@@ -84,15 +105,8 @@ public class Parser{
         }
     }
 
-    // Work in progress
-    public void updateActorBar(){
-        while (actorProgress >= 0){
-            this.controller.view.setProgressBar(actorProgress/actorTotalCount);
-        }
-    }
-
-    public void parseActor() throws IOException {
-        FileReader fr = new FileReader(Constants.dir + Constants.data[ACTORS_LIST]);
+    public void parseActors(FileReader fr, String gender) throws IOException {
+//        FileReader fr = new FileReader(Constants.dir + Constants.data[ACTORS_LIST]);
         BufferedReader reader = new BufferedReader(fr);
         String originalLine;
         int skipCounter = 0;
@@ -118,10 +132,10 @@ public class Parser{
                             String movieLine = originalLine.substring(derp);
                             movieName = movieLine.substring(0, (movieLine.indexOf(')') + 1)).trim();
 
-                            a = this.controller.addActor("m", firstName, lastName, movieName);
+                            a = this.controller.addActor(gender, firstName, lastName, movieName);
                         } else {
                             firstName = line.substring(0);
-                            this.controller.addActor("m", firstName, "", "");
+                            this.controller.addActor(gender, firstName, "", "");
 
                         }
                         actorProgress++;
@@ -157,69 +171,11 @@ public class Parser{
         }
     }
 
-    public void parseActress() throws IOException {
-        FileReader fr = new FileReader(Constants.dir + Constants.data[ACTRESS_LIST]);
-        BufferedReader reader = new BufferedReader(fr);
-        String originalLine;
-        int skipCounter = 0;
-        String firstName;
-        String lastName;
-        String movieName;
-        Actor a = new Actor("", "", "", "");
-
-        try {
-            String line = reader.readLine();
-            while (line != null && !line.contains("SUBMITTING UPDATES")) {
-                if (skipCounter > 238) {
-                    if (line.contains(",") && !Character.isWhitespace(line.charAt(0))) {
-                        originalLine = line;
-                        line = line.substring(0, line.indexOf('\t')).trim();
-
-                        if (line.contains(",")) {
-                            lastName = line.substring(0, line.indexOf(','));
-                            firstName = line.substring((line.indexOf(',') + 1)).trim();
-
-                            int derp = originalLine.indexOf(firstName) + firstName.length();
-                            String movieLine = originalLine.substring(derp);
-                            movieName = movieLine.substring(0, (movieLine.indexOf(')') + 1)).trim();
-
-                            a = this.controller.addActor("f", firstName, lastName, movieName);
-                        } else {
-                            firstName = line.substring(0);
-                            this.controller.addActor("f", firstName, "", "");
-
-                        }
-                        line = reader.readLine();
-                    } else if (line.isEmpty() || line.contains("\"")) {
-                        line = reader.readLine();
-                    } else {
-                        line = line.substring(0, line.indexOf(')') + 1);
-                        movieName = line.trim();
-                        a.addMovie(movieName);
-                        line = reader.readLine();
-                    }
-                } else {
-                    skipCounter++;
-                    line = reader.readLine();
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                reader.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
     public void parseCountries() throws IOException {
         FileReader fr = new FileReader(Constants.dir + Constants.data[COUNTRIES_LIST]);
         BufferedReader reader = new BufferedReader(fr);
 
         int count = 0;
-
         int skipped = 0;
 
         try {
@@ -239,9 +195,14 @@ public class Parser{
                         String countryString = line.substring( country ).trim();
                         title = title.substring(0, country);
 
-                        System.out.print(count);
-                        if(this.controller.addCountry(title, countryString, count)){
-                            count++;
+                        Movie mov = controller.model.returnMovie(title);
+
+                        if (mov != null){
+                            mov.addCountry(countryString);
+                            System.out.println("Added country for: " + title);
+                        }
+                        else {
+                            System.out.println("Skipped!");
                         }
                     }
 
@@ -296,7 +257,7 @@ public class Parser{
                                     line = reader.readLine();
                                 } else {
                                     title = line.replace("MV:", "").trim();
-                                    System.out.println(title);
+                                    //System.out.println(title);
                                 }
                             }
 
@@ -305,7 +266,7 @@ public class Parser{
                                     line = reader.readLine();
                                 } else {
                                     budget = Double.parseDouble(line.replaceAll("[^\\d]", "").trim());
-                                    System.out.println(budget);
+                                    //System.out.println(budget);
                                 }
                             }
 
@@ -317,7 +278,7 @@ public class Parser{
 
                                     profits = Double.parseDouble(line.replaceAll("\\(.*\\)", "").replaceAll("[^\\d]", "").trim());
 
-                                    System.out.println(profits);
+                                    //System.out.println(profits);
                                 }
                             }
 
@@ -326,7 +287,7 @@ public class Parser{
                                     line = reader.readLine();
                                 } else {
                                     sed = line.substring(3, line.length());
-                                    System.out.println(sed);
+                                    //System.out.println(sed);
                                 }
                             }
                             else if (line.startsWith("---")){
@@ -399,7 +360,7 @@ public class Parser{
         }
     }
 
-    public void parseMovieRatings(ArrayList<Movie> movies) throws IOException {
+    public void parseMovieRatings() throws IOException {
         FileReader fr = new FileReader(Constants.dir + Constants.data[RATINGS_LIST]);
 
         BufferedReader reader = new BufferedReader(fr);
@@ -455,17 +416,24 @@ public class Parser{
                     }
                     int yearIndex = splitter.length - 1;
 
-                    while (splitter[yearIndex].length() != 6) {
+                    while (splitter[yearIndex].length() < 6) {
+
                         yearIndex -= 1; //splitter[yearIndex] moet grootte 6 zijn, aangezien het uit een viercijferig getal en twee haakjes bestaat, is deze grootte niet 6 word er gezocht naar de juiste index.
                     }
-                    title += " " + splitter[yearIndex]; //Het jaartal wordt aan de title toegevoegd
-                    for(int i = 0; i < movies.size(); i++)
-                    {
-                        if(movies.get(i).getTitle().equals(title)) {
-                            movies.get(i).setRating(rating); //rating wordt aangepast als de titles gelijk zijn.
-                            break;
-                        }
+
+                    title += " " + splitter[yearIndex].substring(0, 6); //Het jaartal wordt aan de title toegevoegd
+
+                    // Search the movie hashmap for the corresponding movie, do a nullcheck and add rating
+                    Movie mov = controller.model.returnMovie(title);
+
+                    if (mov != null) {
+                        mov.setRating(rating);
+                        System.out.println("Added rating for: " + title);
                     }
+                    else {
+                        System.out.println("Skipped!");
+                    }
+
                     line = reader.readLine();
                 }
             }

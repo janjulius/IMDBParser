@@ -6,7 +6,8 @@ public class Movie {
 
     private String title;
     private int year;
-    private String country;
+    private ArrayList<String> genres = new ArrayList<>();
+    private ArrayList<String> countries = new ArrayList<>();
     private int runningTime;
     private double rating;
     private double budget;
@@ -14,23 +15,32 @@ public class Movie {
     private String sed; //start end date
 
 
-    public Movie(String title, int year, String country){
+    public Movie(String title, int year){
         this.title = title;
         this.year = year;
-        this.country = "unknown";
     }
 
     public String getTitle(){
         return title;
     }
 
-    public String getCountry() { return country; }
+    public ArrayList<String> getCountries() { return countries; }
 
-    public void addCountry(String country) { this.country = country; }
+    public void addCountry(String country) { countries.add(country); }
 
     public int getYear(){
         return this.year;
     }
+
+    public ArrayList<String> getGenre(){ return genres;}
+
+    public void addGenre(String genre) { genres.add(genre);}
+
+    public double getRating(){
+        return this.rating;
+    }
+
+    public int getRunningTime() { return this.runningTime; }
 
     public void setRunningTime(int r){ runningTime = r;}
 
@@ -42,7 +52,23 @@ public class Movie {
         sed = s;
     }
 
-    public StringBuilder Append(StringBuilder sb)
+    // Hashmap
+    @Override
+    public int hashCode() {
+        return title.hashCode();
+    }
+
+    // Hashmap
+    @Override
+    public boolean equals(Object other) {
+        if (other == null) return false;
+        if (other == this) return true;
+        if (!(other instanceof Movie)) return false;
+        Movie otherMovie = (Movie) other;
+        return this.hashCode() == otherMovie.hashCode();
+    }
+/*
+  public StringBuilder Append(StringBuilder sb)
     {
         sb.append(title);
         sb.append(',');
@@ -55,6 +81,6 @@ public class Movie {
         sb.append(Double.toString(rating));
         sb.append(',');
         return sb;
-    }
 
+    } */
 }

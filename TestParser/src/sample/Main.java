@@ -17,21 +17,28 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
+        // Load in the .fxml
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("sample.fxml"));
         Parent root = (Parent) fxmlLoader.load();
+
+        // Extract controller
         ViewController view = (ViewController) fxmlLoader.getController();
+
         primaryStage.setTitle("Parser");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
 
+        // Initializing classes
         Model model = new Model();
         Controller controller = new Controller(model, view);
         Parser parser = new Parser(controller);
-        controller.writeCsv(model.getMovies());
+
+        //controller.writeCsv(model.getMovies());
 
         parser.parseBusiness();
 
-        controller.view.setProgressBar(0);
+        // Initialize some values
+        controller.setup();
     }
 
     public static void main(String[] args) {
