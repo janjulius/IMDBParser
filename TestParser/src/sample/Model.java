@@ -25,10 +25,8 @@ public class Model {
         movieHash.put(movieTitle, m);
     }
 
-    public Movie returnMovie(String movieTitle){
-        Movie m = movieHash.get(movieTitle);
-        return m;
-    }
+    public Movie returnMovie(String movieTitle){ return movieHash.get(movieTitle); }
+    public int returnMovieId(String movieTitle){ return movieHash.get(movieTitle).getId(); }
 
     public void setMovieRunningTime(String t, int runningTime){
         if(createSeperateTables) {
@@ -78,13 +76,13 @@ public class Model {
         count = 0;
         for (Actor a : actors) {
 //            if (count < 500) {
-            for (String mName : a.getMovies()) {
-                System.out.println(a.getFirstName() + " " + a.getLastName() + " (" + a.getGender() + ")" + " - " + mName);
-            }
+        for (String mName : a.getMovies()) {
+            System.out.println(a.getFirstName() + " " + a.getLastName() + " (" + a.getGender() + ")" + " - " + mName);
+        }
 //                count++;
 //            }
-        }
     }
+}
 
     public void printMovies() throws IOException {
 

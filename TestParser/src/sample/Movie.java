@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 public class Movie {
 
+
+    private int id;
     private String title;
     private int year;
     private ArrayList<String> genres = new ArrayList<>();
@@ -15,14 +17,17 @@ public class Movie {
     private String sed; //start end date
 
 
-    public Movie(String title, int year){
+    public Movie(String title, int year, int id){
         this.title = title;
         this.year = year;
+        this.id = id;
     }
 
     public String getTitle(){
         return title;
     }
+
+    public int getId() { return id; }
 
     public ArrayList<String> getCountries() { return countries; }
 

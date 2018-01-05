@@ -1,10 +1,7 @@
 package sample;
 
-import java.io.BufferedReader;
+import java.io.*;
 import java.util.Date;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -12,7 +9,7 @@ import java.util.Scanner;
 
 import Constants.*;
 
-public class Parser{
+public class Parser {
 
     Controller controller;
     int actorProgress = 0;
@@ -28,20 +25,22 @@ public class Parser{
             RATINGS_LIST = 6,
             RUNNINGTIMES_LIST = 7;
 
-    public Parser(Controller controller){
+    public Parser(Controller controller) {
         this.controller = controller;
         controller.addParser(this);
     }
 
     /**
      * Parses Movies
-     * @author Joyce Rosenau/Jos de Vries
+     *
      * @throws IOException
+     * @author Joyce Rosenau/Jos de Vries
      */
     public void parseMovie() throws IOException {
         FileReader fr = new FileReader(Constants.dir + Constants.data[GENRES_LIST]);
         BufferedReader reader = new BufferedReader(fr);
 
+        //count will be our ID
         int count = 0;
         int skipped = 0;
         int year = 0000;
@@ -49,20 +48,21 @@ public class Parser{
         try {
             String line = reader.readLine();
             while (line != null) {
-                if (skipped < 384){line = reader.readLine(); skipped++;
-                    if(line.startsWith("\"")) {
+                if (skipped < 384) {
+                    line = reader.readLine();
+                    skipped++;
+                    if (line.startsWith("\"")) {
                         line = reader.readLine();
-                    }}
+                    }
+                } else {
+//
+                    int yearSep = line.indexOf('(');
+                    int genre = line.indexOf('\t');
 
-                else{
-//                    count++;
-                    int yearSep = line.indexOf( '(' );
-                    int genre = line.indexOf( '\t' );
-
-                    String title = line.substring( 0, yearSep ).trim();
-                    String title2 = line.substring(0, (line.indexOf(')') +1));
-                    String yearString = line.substring( (yearSep+1), (yearSep+5) ).trim();
-                    String genreString = line.substring( genre ).trim();
+                    String title = line.substring(0, yearSep).trim();
+                    String title2 = line.substring(0, (line.indexOf(')') + 1));
+                    String yearString = line.substring((yearSep + 1), (yearSep + 5)).trim();
+                    String genreString = line.substring(genre).trim();
 //                        if ( yearString.length() > 4 )
 //                        {
 //                            yearString = yearString.substring( 0, 4 );
@@ -77,20 +77,20 @@ public class Parser{
 
                     Movie mov = controller.model.returnMovie(title2);
 
-                    if (mov != null){
+                    if (mov != null) {
                         mov.addGenre(genreString);
-                    }
-                    else {
-                        if (yearString.equals("????") || yearString.equals("0")){
-                            Movie m = new Movie (title, 0000);
+                    } else {
+                        if (yearString.equals("????") || yearString.equals("0")) {
+                            Movie m = new Movie(title, 0000, count);
+                            m.addGenre(genreString);
+                            controller.model.addToHashmap(title2, m);
+                        } else {
+                            Movie m = new Movie(title, year, count);
                             m.addGenre(genreString);
                             controller.model.addToHashmap(title2, m);
                         }
-                        else {
-                            Movie m = new Movie (title, year);
-                            m.addGenre(genreString);
-                            controller.model.addToHashmap(title2, m);
-                        }
+
+                        count++;
                     }
 
                     line = reader.readLine();
@@ -112,8 +112,9 @@ public class Parser{
 
     /**
      * Parses Actors
-     * @author Jos de Vries
+     *
      * @throws IOException
+     * @author Jos de Vries
      */
     public void parseActors(FileReader fr, String gender) throws IOException {
         BufferedReader reader = new BufferedReader(fr);
@@ -175,8 +176,7 @@ public class Parser{
                     line = reader.readLine();
                 }
             }
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         } finally {
             try {
@@ -188,9 +188,16 @@ public class Parser{
         }
     }
 
+    /**
+     * Parses Countries
+     *
+     * @throws IOException
+     * @author Lars
+     */
     public void parseCountries() throws IOException {
         FileReader fr = new FileReader(Constants.dir + Constants.data[COUNTRIES_LIST]);
         BufferedReader reader = new BufferedReader(fr);
+        PrintWriter pw = new PrintWriter(new File("test.csv"));
 
         int count = 0;
 
@@ -199,34 +206,30 @@ public class Parser{
             String line = reader.readLine();
             while (line != null) {
                 //skip series
-                if(line.startsWith("\"")) {
+                if (line.startsWith("\"")) {
                     line = reader.readLine();
-                }
-                else{
+                } else {
                     //get country
-                    int country = line.indexOf( '\t' );
+                    int country = line.indexOf('\t');
 
-                    if (country > 0){
+                    if (country > 0) {
                         //get title with country
-                        String title = line.substring( 0, country ).trim();
-                        String countryString = line.substring( country ).trim();
+                        String title = line.substring(0, country).trim();
+                        String countryString = line.substring(country).trim();
                         title = title.substring(0, country);
 
                         //get movie with this title
                         Movie mov = controller.model.returnMovie(title);
 
-                        if (mov != null){
-                            //add country to movie
-                            mov.addCountry(countryString);
-                            //System.out.println("Added country for: " + title);
+                        if (mov != null) {
+                            //add country to csv
+                            pw.write(mov.getId()+ "," + countryString + ";");
+                            System.out.print(mov.getId()+ "," + countryString);
                         }
-                        else {
-                            //System.out.println("Skipped!");
-                        }
-                    }
 
-                    //continue
-                    line = reader.readLine();
+                        //continue
+                        line = reader.readLine();
+                    }
                 }
             }
 
@@ -235,6 +238,7 @@ public class Parser{
         } finally {
             try {
                 reader.close();
+                pw.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -243,8 +247,9 @@ public class Parser{
 
     /**
      * Parses business
-     * @author Jan Julius
+     *
      * @throws IOException
+     * @author Jan Julius
      */
     public void parseBusiness() throws IOException {
         FileReader fr = new FileReader(Constants.dir + Constants.data[BUSINESS_LIST]);
@@ -264,10 +269,10 @@ public class Parser{
 
                         boolean foundEnd = false;
 
-                        while(!foundEnd) {
+                        while (!foundEnd) {
 
                             line = reader.readLine();
-                            if(line == null){
+                            if (line == null) {
                                 foundEnd = true;
                                 break;
                             }
@@ -281,7 +286,7 @@ public class Parser{
                                 }
                             }
 
-                            if(line.startsWith("BT:")){
+                            if (line.startsWith("BT:")) {
                                 if (line.substring(line.indexOf("BT:") + 4, line.length()).startsWith("\"")) {
                                     line = reader.readLine();
                                 } else {
@@ -309,10 +314,12 @@ public class Parser{
                                     sed = line.substring(3, line.length());
                                     //System.out.println(sed);
                                 }
-                            }
-                            else if (line.startsWith("---")){
+                            } else if (line.startsWith("---")) {
                                 controller.addBusiness(title, budget, profits, sed);
-                                title = null; budget = 0; profits = 0; sed = null;
+                                title = null;
+                                budget = 0;
+                                profits = 0;
+                                sed = null;
                             }
                         }
 
@@ -333,8 +340,9 @@ public class Parser{
 
     /**
      * Parses the runningtimes.list
-     * @author Jan Julius
+     *
      * @throws IOException
+     * @author Jan Julius
      */
     public void parseRunningTimes() throws IOException {
         FileReader fr = new FileReader(Constants.dir + Constants.data[RUNNINGTIMES_LIST]);
@@ -353,7 +361,7 @@ public class Parser{
 
                         title = title.substring(0, sepIndex).trim();
 
-                        if(timeRunning.contains("(") || timeRunning.contains(")"))
+                        if (timeRunning.contains("(") || timeRunning.contains(")"))
                             timeRunning = timeRunning.replaceAll("\\(.*\\)", ""); //replace anything within () with nothing
 
                         timeRunning = timeRunning.replaceAll("[^\\d]", "").trim(); //remove any non number character and trim
@@ -389,7 +397,7 @@ public class Parser{
         try {
             String line = reader.readLine();
 
-            while(line != null) {
+            while (line != null) {
                 while (!dataReached) {
                     if (line.startsWith("MOVIE RATINGS REPORT")) { //Hier in de ratings file begint de data die we nodig hebben.
                         dataReached = true;
@@ -397,14 +405,12 @@ public class Parser{
                         line = reader.readLine();
                     }
                 }
-                if (line.startsWith("---"))
-                {
+                if (line.startsWith("---")) {
                     break; //Het einde van de data
                 }
                 if (!line.startsWith("     ")) {
                     line = reader.readLine(); //controle of de line wel echt movie data bevat, alle lines die hiermee beginnen doen dat.
-                }
-                else {
+                } else {
                     String[] splitter = line.split(" "); //elke line word gesplit op spaties.
                     int[] possibleIndex = new int[3];
                     int index = 0;
@@ -429,7 +435,7 @@ public class Parser{
                         if (splitter[i].startsWith("(")) {
                             break;
                         }
-                            title += splitter[i] + " "; //Totdat er een "(" word gevonden word elk woord van de title aan de title-variable toegevoegd.
+                        title += splitter[i] + " "; //Totdat er een "(" word gevonden word elk woord van de title aan de title-variable toegevoegd.
                     }
                     if (!title.equals("")) {
                         title = title.substring(0, title.length() - 1); //De laatste spatie wordt verwijderd.
@@ -449,16 +455,14 @@ public class Parser{
                     if (mov != null) {
                         mov.setRating(rating);
                         System.out.println("Added rating for: " + title);
-                    }
-                    else {
+                    } else {
                         System.out.println("Skipped!");
                     }
 
                     line = reader.readLine();
                 }
             }
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         } finally {
             try {
@@ -466,15 +470,6 @@ public class Parser{
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
-    }
-
-    public boolean tryParseInt(String value) {
-        try {
-            Integer.parseInt(value);
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
         }
     }
 }

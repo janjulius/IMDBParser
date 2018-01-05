@@ -42,29 +42,29 @@ public class Controller {
         this.view.setup();
     }
 
-  public void writeCsv(HashMap<String, Movie> movies) throws FileNotFoundException {
-        PrintWriter pw = new PrintWriter(new File("test.csv"));
-        StringBuilder sb = new StringBuilder();
-
-        movies.forEach((String s, Movie m) -> {
-            sb.append(m.getTitle());
-            sb.append(',');
-            sb.append(Integer.toString(m.getYear()));
-            sb.append(',');
-            sb.append(m.getGenre());
-            sb.append(',');
-            for(String country : m.getCountries()) {
-                sb.append(country);
-                sb.append(',');
-            }
-            sb.append(Integer.toString(m.getRunningTime()));
-            sb.append(',');
-            sb.append(Double.toString(m.getRating()));
-            sb.append(',');
-        });
-
-        pw.write(sb.toString());
-        pw.close();
-        System.out.println("done!");
-    }
+//  public void writeCsv(HashMap<String, Movie> movies) throws FileNotFoundException {
+////        PrintWriter pw = new PrintWriter(new File("test.csv"));
+////        StringBuilder sb = new StringBuilder();
+////
+////        movies.forEach((String s, Movie m) -> {
+////            sb.append(m.getTitle());
+////            sb.append(',');
+////            sb.append(Integer.toString(m.getYear()));
+////            sb.append(',');
+////            sb.append(m.getGenre());
+////            sb.append(',');
+////            for(String country : m.getCountries()) {
+////                sb.append(country);
+////                sb.append(',');
+////            }
+////            sb.append(Integer.toString(m.getRunningTime()));
+////            sb.append(',');
+////            sb.append(Double.toString(m.getRating()));
+////            sb.append(',');
+////        });
+////
+////        pw.write(sb.toString());
+////        pw.close();
+////        System.out.println("done!");
+////    }
 }

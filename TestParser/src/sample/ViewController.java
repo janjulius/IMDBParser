@@ -75,7 +75,7 @@ public class ViewController {
         for (String key : controller.model.returnMovieHash().keySet()){
             if (count < 300){
                 Movie m = controller.model.returnMovieHash().get(key);
-                System.out.println("Title of movie: " + m.getTitle() + " Key of movie: " + key);
+                //System.out.println("Title of movie: " + m.getTitle() + " Key of movie: " + key);
                 count++;
             }
             count++;
@@ -183,6 +183,6 @@ public class ViewController {
 
     @FXML
     public void writeCsvButton() throws IOException{
-        controller.writeCsv(controller.model.returnMovieHash());
+        //controller.writeCsv(controller.model.returnMovieHash());
     }
 }
