@@ -197,7 +197,7 @@ public class Parser {
     public void parseCountries() throws IOException {
         FileReader fr = new FileReader(Constants.dir + Constants.data[COUNTRIES_LIST]);
         BufferedReader reader = new BufferedReader(fr);
-        PrintWriter pw = new PrintWriter(new File("test.csv"));
+        PrintWriter pw = new PrintWriter(new File("testcountry.csv"));
 
         int count = 0;
 
@@ -223,13 +223,12 @@ public class Parser {
 
                         if (mov != null) {
                             //add country to csv
-                            pw.write(mov.getId()+ "," + countryString + ";");
-                            System.out.print(mov.getId()+ "," + countryString);
+                            pw.write(mov.getId()+ "," + countryString + ",");
+                            System.out.println(mov.getId()+ "," + countryString);
                         }
-
-                        //continue
-                        line = reader.readLine();
                     }
+
+                    line = reader.readLine();
                 }
             }
 
@@ -239,6 +238,7 @@ public class Parser {
             try {
                 reader.close();
                 pw.close();
+                System.out.print("done boi coutnrie");
             } catch (IOException e) {
                 e.printStackTrace();
             }
