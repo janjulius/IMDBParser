@@ -314,7 +314,10 @@ public class Parser {
                                     //System.out.println(sed);
                                 }
                             } else if (line.startsWith("---")) {
-                                controller.addBusiness(title, budget, profits, sed);
+                                Movie m = controller.model.returnMovie(title);
+                                if(m != null) {
+                                    m.setBusinessInfo(budget, profits, sed);
+                                }
                                 title = null;
                                 budget = 0;
                                 profits = 0;
@@ -367,8 +370,10 @@ public class Parser {
 
                         int parsedrtInt = Integer.parseInt(timeRunning);
 
-                        if (timeRunning != null) {
-                            controller.addRunningTime(title, parsedrtInt);
+                        Movie m = controller.model.returnMovie(title);
+
+                        if (timeRunning != null && m != null) {
+                            m.setRunningTime(parsedrtInt);
                         }
 
                     }
