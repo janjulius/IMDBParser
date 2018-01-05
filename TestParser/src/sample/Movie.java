@@ -9,7 +9,6 @@ public class Movie {
     private String title;
     private int year;
     private ArrayList<String> genres = new ArrayList<>();
-    private ArrayList<String> countries = new ArrayList<>();
     private int runningTime;
     private double rating;
     private double budget;
@@ -28,10 +27,6 @@ public class Movie {
     }
 
     public int getId() { return id; }
-
-    public ArrayList<String> getCountries() { return countries; }
-
-    public void addCountry(String country) { countries.add(country); }
 
     public int getYear(){
         return this.year;

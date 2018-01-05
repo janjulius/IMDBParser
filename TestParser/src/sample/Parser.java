@@ -238,7 +238,6 @@ public class Parser {
             try {
                 reader.close();
                 pw.close();
-                System.out.print("done boi coutnrie");
             } catch (IOException e) {
                 e.printStackTrace();
             }

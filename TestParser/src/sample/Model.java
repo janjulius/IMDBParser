@@ -26,7 +26,6 @@ public class Model {
     }
 
     public Movie returnMovie(String movieTitle){ return movieHash.get(movieTitle); }
-    public int returnMovieId(String movieTitle){ return movieHash.get(movieTitle).getId(); }
 
     public void setMovieRunningTime(String t, int runningTime){
         if(createSeperateTables) {

@@ -183,6 +183,6 @@ public class ViewController {
 
     @FXML
     public void writeCsvButton() throws IOException{
-        //controller.writeCsv(controller.model.returnMovieHash());
+        controller.writeCsv(controller.model.returnMovieHash());
     }
 }
