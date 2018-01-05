@@ -33,10 +33,6 @@ public class Main extends Application {
         Controller controller = new Controller(model, view);
         Parser parser = new Parser(controller);
 
-        //controller.writeCsv(model.getMovies());
-
-        parser.parseBusiness();
-
         // Initialize some values
         controller.setup();
     }

@@ -13,6 +13,10 @@ import java.util.Map;
 
 import Constants.*;
 
+/**
+ * ViewController
+ * @author Jos de Vries
+ */
 public class ViewController {
 
     Controller controller;

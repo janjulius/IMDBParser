@@ -33,8 +33,13 @@ public class Parser{
         controller.addParser(this);
     }
 
+    /**
+     * Parses Movies
+     * @author Joyce Rosenau/Jos de Vries
+     * @throws IOException
+     */
     public void parseMovie() throws IOException {
-        FileReader fr = new FileReader(Constants.dir + Constants.data[MOVIES_LIST]);
+        FileReader fr = new FileReader(Constants.dir + Constants.data[GENRES_LIST]);
         BufferedReader reader = new BufferedReader(fr);
 
         int count = 0;
@@ -105,8 +110,12 @@ public class Parser{
         }
     }
 
+    /**
+     * Parses Actors
+     * @author Jos de Vries
+     * @throws IOException
+     */
     public void parseActors(FileReader fr, String gender) throws IOException {
-//        FileReader fr = new FileReader(Constants.dir + Constants.data[ACTORS_LIST]);
         BufferedReader reader = new BufferedReader(fr);
         String originalLine;
         int skipCounter = 0;
@@ -114,40 +123,48 @@ public class Parser{
         String lastName;
         String movieName;
         Actor a = new Actor("", "", "", "");
-        actorProgress = 0;
+//        actorProgress = 0;
 
+        // Try/catch since this is good practise with reading files.
         try {
             String line = reader.readLine();
+
+            // Filter for empty lines and stop when it reaches the end of useful data.
             while (line != null && !line.contains("SUBMITTING UPDATES")) {
+                // Skip intro text
                 if (skipCounter > 238) {
+                    // Filter for lines that have commas in them and which do not start with a whitespace at the first index.
                     if (line.contains(",") && !Character.isWhitespace(line.charAt(0))) {
                         originalLine = line;
                         line = line.substring(0, line.indexOf('\t')).trim();
 
+                        // More filtering for commas - Else is for if people do not have last names listed.
                         if (line.contains(",")) {
                             lastName = line.substring(0, line.indexOf(','));
                             firstName = line.substring((line.indexOf(',') + 1)).trim();
 
-                            int derp = originalLine.indexOf(firstName) + firstName.length();
-                            String movieLine = originalLine.substring(derp);
+                            int indexFilter = originalLine.indexOf(firstName) + firstName.length();
+                            String movieLine = originalLine.substring(indexFilter);
                             movieName = movieLine.substring(0, (movieLine.indexOf(')') + 1)).trim();
 
+                            // Add actor when all data is collected and return actor so we can add movies to it later
                             a = this.controller.addActor(gender, firstName, lastName, movieName);
                         } else {
                             firstName = line.substring(0);
                             this.controller.addActor(gender, firstName, "", "");
-
                         }
-                        actorProgress++;
+//                        actorProgress++;
 //                        this.controller.view.setProgressBar(progresscount / totalCount);
                         line = reader.readLine();
                     } else if (line.isEmpty() || line.contains("\"")) {
-                        actorProgress++;
+//                        actorProgress++;
 //                        this.controller.view.setProgressBar(progresscount / totalCount);
                         line = reader.readLine();
                     } else {
                         line = line.substring(0, line.indexOf(')') + 1);
                         movieName = line.trim();
+
+                        // Since an actor was defined earlier, we can add additional movies to it now.
                         a.addMovie(movieName);
 
 //                        this.controller.view.setProgressBar(progresscount / totalCount);
@@ -163,7 +180,7 @@ public class Parser{
             e.printStackTrace();
         } finally {
             try {
-                actorProgress = -1;
+//                actorProgress = -1;
                 reader.close();
             } catch (IOException e) {
                 e.printStackTrace();

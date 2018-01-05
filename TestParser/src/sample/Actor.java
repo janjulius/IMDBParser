@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Actor {
 
-    private List<String> movies = new ArrayList<String>();
+    private List<String> movies = new ArrayList<>();
     private String firstName;
     private String lastName;
     private String gender;
