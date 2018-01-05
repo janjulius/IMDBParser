@@ -34,13 +34,15 @@ public class Movie {
 
     public ArrayList<String> getGenre(){ return genres;}
 
-    public void addGenre(String genre) { genres.add(genre);}
-
     public double getRating(){
         return this.rating;
     }
 
     public int getRunningTime() { return this.runningTime; }
+
+    public double getBudget() { return this.budget; }
+
+    public double getProfits() { return this.profits; }
 
     public void setRunningTime(int r){ runningTime = r;}
 
@@ -51,6 +53,8 @@ public class Movie {
         profits = p;
         sed = s;
     }
+
+    public void addGenre(String genre) { genres.add(genre);}
 
     // Hashmap
     @Override

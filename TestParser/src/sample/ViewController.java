@@ -157,14 +157,14 @@ public class ViewController {
         progressbarRating.setProgress(100);
         int count = 0;
 
-        for (String key : controller.model.returnMovieHash().keySet()){
-            if (count < 300){
-                Movie m = controller.model.returnMovieHash().get(key);
-                System.out.println("Title of movie: " + m.getTitle() + " Rating: " + m.getRating());
-                count++;
-            }
-            count++;
-        }
+//        for (String key : controller.model.returnMovieHash().keySet()){
+//            if (count < 300){
+//                Movie m = controller.model.returnMovieHash().get(key);
+//                System.out.println("Title of movie: " + m.getTitle() + " Rating: " + m.getRating());
+//                count++;
+//            }
+//            count++;
+//        }
 
         ZonedDateTime dt2 = ZonedDateTime.now();
         System.out.println(String.format("Parsed list in %s seconds", Duration.between(dt, dt2).getSeconds()));

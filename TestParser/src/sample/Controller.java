@@ -55,9 +55,24 @@ public class Controller {
             sb.append(',');
             sb.append(Double.toString(m.getRating()));
             sb.append(',');
+            sb.append(Double.toString(m.getBudget()));
+            sb.append(',');
+            sb.append(Double.toString(m.getProfits()));
+            if (m.getBudget() > 10000){
+                System.out.println(m.getBudget());
+            }
+            if (m.getProfits() > 10000){
+                System.out.println(m.getProfits());
+            }
+            if (m.getRunningTime() > 30){
+                System.out.println(m.getRunningTime());
+            }
+            pw.write(sb.toString());
+            sb.setLength(0);
+            pw.println();
         });
 
-        pw.write(sb.toString());
+//        pw.write(sb.toString());
         pw.close();
         System.out.println("done!");
     }
