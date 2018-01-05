@@ -176,36 +176,39 @@ public class Parser{
         BufferedReader reader = new BufferedReader(fr);
 
         int count = 0;
-        int skipped = 0;
 
         try {
+            //start reading lines from data file
             String line = reader.readLine();
             while (line != null) {
-                if(count >= 5000) {
-                    break;
-                }
+                //skip series
                 if(line.startsWith("\"")) {
                     line = reader.readLine();
                 }
                 else{
+                    //get country
                     int country = line.indexOf( '\t' );
 
                     if (country > 0){
+                        //get title with country
                         String title = line.substring( 0, country ).trim();
                         String countryString = line.substring( country ).trim();
                         title = title.substring(0, country);
 
+                        //get movie with this title
                         Movie mov = controller.model.returnMovie(title);
 
                         if (mov != null){
+                            //add country to movie
                             mov.addCountry(countryString);
-                            System.out.println("Added country for: " + title);
+                            //System.out.println("Added country for: " + title);
                         }
                         else {
-                            System.out.println("Skipped!");
+                            //System.out.println("Skipped!");
                         }
                     }
 
+                    //continue
                     line = reader.readLine();
                 }
             }
