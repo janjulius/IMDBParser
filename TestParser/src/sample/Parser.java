@@ -1,11 +1,9 @@
 package sample;
 
 import java.io.*;
-import java.util.Date;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.charset.StandardCharsets;
 
 import Constants.*;
 
@@ -37,8 +35,8 @@ public class Parser {
      * @author Joyce Rosenau/Jos de Vries
      */
     public void parseMovie() throws IOException {
-        FileReader fr = new FileReader(Constants.dir + Constants.data[GENRES_LIST]);
-        BufferedReader reader = new BufferedReader(fr);
+
+        BufferedReader reader = Files.newBufferedReader(Paths.get(Constants.dir + Constants.data[GENRES_LIST]), StandardCharsets.ISO_8859_1);
 
         //count will be our ID
         int count = 0;
@@ -116,8 +114,7 @@ public class Parser {
      * @throws IOException
      * @author Jos de Vries
      */
-    public void parseActors(FileReader fr, String gender) throws IOException {
-        BufferedReader reader = new BufferedReader(fr);
+    public void parseActors(BufferedReader reader, String gender) throws IOException {
         String originalLine;
         int skipCounter = 0;
         String firstName;
@@ -195,8 +192,7 @@ public class Parser {
      * @author Lars
      */
     public void parseCountries() throws IOException {
-        FileReader fr = new FileReader(Constants.dir + Constants.data[COUNTRIES_LIST]);
-        BufferedReader reader = new BufferedReader(fr);
+        BufferedReader reader = Files.newBufferedReader(Paths.get(Constants.dir + Constants.data[COUNTRIES_LIST]), StandardCharsets.ISO_8859_1);
         PrintWriter pw = new PrintWriter(new File("testcountry.csv"));
 
         int count = 0;
@@ -251,8 +247,7 @@ public class Parser {
      * @author Jan Julius
      */
     public void parseBusiness() throws IOException {
-        FileReader fr = new FileReader(Constants.dir + Constants.data[BUSINESS_LIST]);
-        BufferedReader reader = new BufferedReader(fr);
+        BufferedReader reader = Files.newBufferedReader(Paths.get(Constants.dir + Constants.data[BUSINESS_LIST]), StandardCharsets.ISO_8859_1);
 
         try {
             String line = reader.readLine();
@@ -347,8 +342,7 @@ public class Parser {
      * @author Jan Julius
      */
     public void parseRunningTimes() throws IOException {
-        FileReader fr = new FileReader(Constants.dir + Constants.data[RUNNINGTIMES_LIST]);
-        BufferedReader reader = new BufferedReader(fr);
+        BufferedReader reader = Files.newBufferedReader(Paths.get(Constants.dir + Constants.data[RUNNINGTIMES_LIST]), StandardCharsets.ISO_8859_1);
 
         try {
             String line = reader.readLine();
@@ -393,9 +387,7 @@ public class Parser {
     }
 
     public void parseMovieRatings() throws IOException {
-        FileReader fr = new FileReader(Constants.dir + Constants.data[RATINGS_LIST]);
-
-        BufferedReader reader = new BufferedReader(fr);
+        BufferedReader reader = Files.newBufferedReader(Paths.get(Constants.dir + Constants.data[RATINGS_LIST]), StandardCharsets.ISO_8859_1);
         boolean dataReached = false;
 
         try {

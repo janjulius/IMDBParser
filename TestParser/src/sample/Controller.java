@@ -42,11 +42,14 @@ public class Controller {
         this.view.setup();
     }
 
+    // Writes all the movie objects to csv
     public void writeCsv(HashMap<String, Movie> movies) throws FileNotFoundException {
         PrintWriter pw = new PrintWriter(new File("testmovies.csv"));
         StringBuilder sb = new StringBuilder();
 
         movies.forEach((String s, Movie m) -> {
+            sb.append(m.getId());
+            sb.append(',');
             sb.append(m.getTitle());
             sb.append(',');
             sb.append(Integer.toString(m.getYear()));
@@ -58,15 +61,6 @@ public class Controller {
             sb.append(Double.toString(m.getBudget()));
             sb.append(',');
             sb.append(Double.toString(m.getProfits()));
-            if (m.getBudget() > 10000){
-                System.out.println(m.getBudget());
-            }
-            if (m.getProfits() > 10000){
-                System.out.println(m.getProfits());
-            }
-            if (m.getRunningTime() > 30){
-                System.out.println(m.getRunningTime());
-            }
             pw.write(sb.toString());
             sb.setLength(0);
             pw.println();

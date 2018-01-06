@@ -4,12 +4,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ProgressBar;
 
-import java.io.FileReader;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.Duration;
 import java.time.ZonedDateTime;
-import java.util.Arrays;
-import java.util.Map;
 
 import Constants.*;
 
@@ -94,8 +95,11 @@ public class ViewController {
     @FXML
     public void actorParseButton() throws IOException{
         controller.view.setProgressBar(0);
-        FileReader frMale = new FileReader(Constants.dir + Constants.data[ACTORS_LIST]);
-        FileReader frFemale = new FileReader(Constants.dir + Constants.data[ACTRESS_LIST]);
+
+        // Load in the data so we can pass it into the parser function later
+        BufferedReader brMale = Files.newBufferedReader(Paths.get(Constants.dir + Constants.data[ACTORS_LIST]), StandardCharsets.ISO_8859_1);
+        BufferedReader brFemale = Files.newBufferedReader(Paths.get(Constants.dir + Constants.data[ACTRESS_LIST]), StandardCharsets.ISO_8859_1);
+
         ZonedDateTime dt = ZonedDateTime.now();
 
         // Start the parseActors function twice, for each gender. On a different thread for potential javaFX updates (progressbar, etc)
@@ -103,8 +107,8 @@ public class ViewController {
             new Thread(() ->
             {
                 try{
-                    this.controller.parser.parseActors(frMale, "m");
-                    this.controller.parser.parseActors(frFemale, "f");
+                    this.controller.parser.parseActors(brMale, "m");
+                    this.controller.parser.parseActors(brFemale, "f");
 
                     parseActorsButton.setDisable(true);
 
