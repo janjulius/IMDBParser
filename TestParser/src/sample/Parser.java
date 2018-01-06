@@ -115,13 +115,15 @@ public class Parser {
      * @author Jos de Vries
      */
     public void parseActors(BufferedReader reader, String gender) throws IOException {
+
         String originalLine;
         int skipCounter = 0;
+
+        int idCounter = 1;
         String firstName;
         String lastName;
         String movieName;
-        Actor a = new Actor("", "", "", "");
-//        actorProgress = 0;
+        Actor a = new Actor(0,"", "", "", 0);
 
         // Try/catch since this is good practise with reading files.
         try {
@@ -145,11 +147,19 @@ public class Parser {
                             String movieLine = originalLine.substring(indexFilter);
                             movieName = movieLine.substring(0, (movieLine.indexOf(')') + 1)).trim();
 
-                            // Add actor when all data is collected and return actor so we can add movies to it later
-                            a = this.controller.addActor(gender, firstName, lastName, movieName);
+                            // Search up the movie so we can pass it's id in the actor constructor
+                            Movie mov = controller.model.returnMovie(movieName);
+
+                            if (mov != null){
+                                // Add actor when all data is collected and return actor so we can add movies to it later
+                                a = this.controller.addActor(idCounter, gender, firstName, lastName, mov.getId());
+                                idCounter++;
+                            }
+
                         } else {
                             firstName = line.substring(0);
-                            this.controller.addActor(gender, firstName, "", "");
+                            a = this.controller.addActor(idCounter, gender, firstName, "", 0);
+                            idCounter++;
                         }
 //                        actorProgress++;
 //                        this.controller.view.setProgressBar(progresscount / totalCount);
@@ -161,11 +171,13 @@ public class Parser {
                     } else {
                         line = line.substring(0, line.indexOf(')') + 1);
                         movieName = line.trim();
+                        Movie mov = controller.model.returnMovie(movieName);
 
-                        // Since an actor was defined earlier, we can add additional movies to it now.
-                        a.addMovie(movieName);
+                        if (mov != null){
+                            // Since an actor was defined earlier, we can add additional movies to it now.
+                            a.addMovie(mov.getId());
+                        }
 
-//                        this.controller.view.setProgressBar(progresscount / totalCount);
                         line = reader.readLine();
                     }
                 } else {

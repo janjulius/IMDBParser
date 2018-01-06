@@ -5,16 +5,36 @@ import java.util.List;
 
 public class Actor {
 
-    private List<String> movies = new ArrayList<>();
+    private int id;
+    private List<Integer> movies = new ArrayList<>();
     private String firstName;
     private String lastName;
     private String gender;
 
-    public Actor(String gender, String firstname, String lastname, String movie){
+    public Actor(int id, String gender, String firstname, String lastname, int movieID){
+        this.id = id;
         this.gender = gender;
         this.firstName = firstname;
         this.lastName = lastname;
-        movies.add(movie);
+        movies.add(movieID);
+    }
+
+    public int getId(){ return this.id; }
+
+    public String getGender(){
+        return this.gender;
+    }
+
+    public String getFirstName(){
+        return this.firstName;
+    }
+
+    public String getLastName(){
+        return this.lastName;
+    }
+
+    public List<Integer> getMovies(){
+        return this.movies;
     }
 
     public void setGender(String gender){
@@ -29,23 +49,11 @@ public class Actor {
         this.lastName = lastName;
     }
 
-    public List<String> getMovies(){
-        return this.movies;
-    }
 
-    public String getGender(){
-        return this.gender;
-    }
 
-    public String getFirstName(){
-        return this.firstName;
-    }
 
-    public String getLastName(){
-        return this.lastName;
-    }
 
-    public void addMovie(String movieName){
-        movies.add(movieName);
+    public void addMovie(int movieID){
+        movies.add(movieID);
     }
 }

@@ -27,6 +27,10 @@ public class Model {
 
     public Movie returnMovie(String movieTitle){ return movieHash.get(movieTitle); }
 
+    public ArrayList<Actor> returnActors(){
+        return this.actors;
+    }
+
     public void setMovieRunningTime(String t, int runningTime){
         if(createSeperateTables) {
             rTimes.add(new RunningTime(t, runningTime)); //add new rnningtime as runningtim object to runningtime list
@@ -61,8 +65,8 @@ public class Model {
         //System.out.println("new: " + title); //print new object
     }
 
-    public Actor addActor(String gender, String firstname, String lastname, String movie) {
-        Actor a = new Actor(gender, firstname, lastname, movie);
+    public Actor addActor(int id, String gender, String firstname, String lastname, int movieID) {
+        Actor a = new Actor(id, gender, firstname, lastname, movieID);
         actors.add(a);
         return a;
     }
@@ -75,7 +79,7 @@ public class Model {
         count = 0;
         for (Actor a : actors) {
 //            if (count < 500) {
-        for (String mName : a.getMovies()) {
+        for (int mName : a.getMovies()) {
             System.out.println(a.getFirstName() + " " + a.getLastName() + " (" + a.getGender() + ")" + " - " + mName);
         }
 //                count++;

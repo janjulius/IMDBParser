@@ -53,6 +53,7 @@ public class ViewController {
         parseRunningTimesButton.setDisable(true);
         parseRatingsButton.setDisable(true);
         parseCountriesButton.setDisable(true);
+        parseActorsButton.setDisable(true);
 //        writeCsvButton.setDisable(true);
     }
 
@@ -86,6 +87,7 @@ public class ViewController {
         parseRunningTimesButton.setDisable(false);
         parseRatingsButton.setDisable(false);
         parseCountriesButton.setDisable(false);
+        parseActorsButton.setDisable(false);
         parseMovieButton.setDisable(true);
 
         ZonedDateTime dt2 = ZonedDateTime.now();
@@ -188,5 +190,6 @@ public class ViewController {
     @FXML
     public void writeCsvButton() throws IOException{
         controller.writeCsv(controller.model.returnMovieHash());
+        controller.writeActorToCsv();
     }
 }

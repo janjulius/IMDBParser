@@ -23,8 +23,8 @@ public class Controller {
     }
 
     // Add actor but also return it
-    public Actor addActor(String gender, String firstname, String lastname, String movie) {
-            Actor a = this.model.addActor(gender, firstname, lastname, movie);
+    public Actor addActor(int id, String gender, String firstname, String lastname, int movieID) {
+            Actor a = this.model.addActor(id, gender, firstname, lastname, movieID);
             return a;
     }
 
@@ -68,6 +68,25 @@ public class Controller {
 
 //        pw.write(sb.toString());
         pw.close();
-        System.out.println("done!");
+        System.out.println("Wrote movies to csv");
+    }
+
+    public void writeActorToCsv() throws FileNotFoundException {
+        PrintWriter pw = new PrintWriter(new File("testActors.csv"));
+        StringBuilder sb = new StringBuilder();
+
+        model.returnActors().forEach((Actor a) -> {
+            for (int movieID : a.getMovies()){
+                sb.append(a.getId());
+                sb.append(',');
+                sb.append(movieID);
+                pw.write(sb.toString());
+                sb.setLength(0);
+                pw.println();
+            }
+        });
+
+        pw.close();
+        System.out.println("Wrote actors to csv");
     }
 }
