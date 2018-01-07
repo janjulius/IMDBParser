@@ -24,7 +24,7 @@ public class Main extends Application {
 
         // Initializing classes
         ObjectStorage objectStorage = new ObjectStorage();
-        Controller controller = new Controller(objectStorage, view);
+        Controller controller = new Controller(objectStorage, view, primaryStage);
         Parser parser = new Parser(controller);
 
         // Initialize some values

@@ -171,4 +171,17 @@ public class ViewController {
         controller.writeToCsv(controller.objectStorage.getCountryHash(), "Countries");
         controller.writeToCsv(controller.objectStorage.getGenreHash(), "Genres");
     }
+
+    // Exit the application.
+    public void exitButtonClicked(){
+        controller.stage.close();
+    }
+
+    // Pop up an alert box with information about the application.
+    public void infoButtonClicked(){
+        String title = "Big Movie - IMDB Parser";
+        String message = "Made by Lars Schipper, Joyce Rosenau, Jan Julius de Lang, Jos de Vries, Hielke Muizelaar";
+
+        AlertBox.display(title, message);
+    }
 }

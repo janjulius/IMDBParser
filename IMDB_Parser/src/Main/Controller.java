@@ -1,6 +1,7 @@
 package Main;
 
 import Data.ObjectStorage;
+import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -12,10 +13,12 @@ public class Controller {
     ObjectStorage objectStorage;
     ViewController view;
     Parser parser;
+    Stage stage;
 
-    public Controller(ObjectStorage objectStorage, ViewController view){
+    public Controller(ObjectStorage objectStorage, ViewController view, Stage stage){
         this.objectStorage = objectStorage;
         this.view = view;
+        this.stage = stage;
         view.injectController(this);
     }
 
