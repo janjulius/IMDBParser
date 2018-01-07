@@ -7,7 +7,6 @@ public class Movie {
     private int id;
     private String title;
     private int year;
-    private ArrayList<String> genres = new ArrayList<>();
     private int runningTime;
     private double rating;
     private double budget;
@@ -31,8 +30,6 @@ public class Movie {
         return this.year;
     }
 
-    public ArrayList<String> getGenre(){ return genres;}
-
     public double getRating(){
         return this.rating;
     }
@@ -52,8 +49,6 @@ public class Movie {
         profits = p;
         sed = s;
     }
-
-    public void addGenre(String genre) { genres.add(genre);}
 
     // Hashmap
     @Override

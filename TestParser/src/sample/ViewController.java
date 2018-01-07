@@ -191,5 +191,7 @@ public class ViewController {
     public void writeCsvButton() throws IOException{
         controller.writeCsv(controller.model.returnMovieHash());
         controller.writeActorToCsv();
+        controller.writeToCsv(controller.model.getCountryHash(), "country");
+        controller.writeToCsv(controller.model.getGenreHash(), "genre");
     }
 }

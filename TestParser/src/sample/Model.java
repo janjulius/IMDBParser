@@ -13,26 +13,49 @@ public class Model {
     private List<RunningTime> rTimes = new ArrayList<>();
     private List<Business> businesses = new ArrayList<>();
 
+    private HashMap<Integer, String> countryHash = new HashMap<>();
+    private HashMap<Integer, String> genreHash = new HashMap<>();
     private HashMap<String, Movie> movieHash = new HashMap<>();
 
     int count;
 
-    public HashMap<String, Movie> returnMovieHash(){
+    //movie hash
+    public HashMap<String, Movie> returnMovieHash() {
         return this.movieHash;
     }
 
-    public void addToHashmap(String movieTitle, Movie m){
+    public void addToHashmap(String movieTitle, Movie m) {
         movieHash.put(movieTitle, m);
     }
 
-    public Movie returnMovie(String movieTitle){ return movieHash.get(movieTitle); }
+    public Movie returnMovie(String movieTitle) {
+        return movieHash.get(movieTitle);
+    }
 
-    public ArrayList<Actor> returnActors(){
+    //country hash
+    public HashMap<Integer, String> getCountryHash() {
+        return countryHash;
+    }
+
+    public void addToCountries(int id, String country) {
+        countryHash.put(id, country);
+    }
+
+    //genre hash
+    public HashMap<Integer, String> getGenreHash() {
+        return genreHash;
+    }
+
+    public void addToGenres(int id, String genre) {
+        genreHash.put(id, genre);
+    }
+
+    public ArrayList<Actor> returnActors() {
         return this.actors;
     }
 
-    public void setMovieRunningTime(String t, int runningTime){
-        if(createSeperateTables) {
+    public void setMovieRunningTime(String t, int runningTime) {
+        if (createSeperateTables) {
             rTimes.add(new RunningTime(t, runningTime)); //add new rnningtime as runningtim object to runningtime list
         } else {
 
@@ -41,7 +64,7 @@ public class Model {
                     .findFirst() //find the first that equals the in the filter expression
                     .orElse(null); //return null if its not there.
 
-            if(m != null)
+            if (m != null)
                 m.setRunningTime(runningTime);
         }
         //System.out.println("new: " + t); //print new object
@@ -49,8 +72,8 @@ public class Model {
 
     public void setBusinesses(String title,
                               double budget, double profits,
-                              String sed){
-        if(createSeperateTables) {
+                              String sed) {
+        if (createSeperateTables) {
             businesses.add(new Business(title, budget, profits, sed));
         } else {
 
@@ -59,7 +82,7 @@ public class Model {
                     .findFirst() //find the first that equals the in the filter expression
                     .orElse(null); //return null if its not there.
 
-            if(m != null)
+            if (m != null)
                 m.setBusinessInfo(budget, profits, sed);
         }
         //System.out.println("new: " + title); //print new object
@@ -69,38 +92,5 @@ public class Model {
         Actor a = new Actor(id, gender, firstname, lastname, movieID);
         actors.add(a);
         return a;
-    }
-
-    public ArrayList<Movie> returnMovies(){
-        return this.movies;
-    }
-
-    public void printActors() {
-        count = 0;
-        for (Actor a : actors) {
-//            if (count < 500) {
-        for (int mName : a.getMovies()) {
-            System.out.println(a.getFirstName() + " " + a.getLastName() + " (" + a.getGender() + ")" + " - " + mName);
-        }
-//                count++;
-//            }
-    }
-}
-
-    public void printMovies() throws IOException {
-
-        PrintWriter writer = new PrintWriter("test.txt", "UTF-8");
-
-        for (Movie m : movies){
-            String line = m.getTitle() + " - " + m.getYear()+ " - " + m.getGenre();
-            writer.println(line);
-            //System.out.println(line);
-        }
-
-        writer.close();
-    }
-
-    public ArrayList<Movie> getMovies() {
-        return movies;
     }
 }

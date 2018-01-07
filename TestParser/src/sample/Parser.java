@@ -32,7 +32,7 @@ public class Parser {
      * Parses Movies
      *
      * @throws IOException
-     * @author Joyce Rosenau/Jos de Vries
+     * @author Joyce Rosenau/Jos de Vries/Lars
      */
     public void parseMovie() throws IOException {
 
@@ -69,24 +69,25 @@ public class Parser {
                     try {
                         // This throws an exception because the string is invalid.
                         year = Integer.parseInt(yearString);
-                    } catch (NumberFormatException n) {
-                    }
+                    } catch (NumberFormatException n) { }
 
 
                     Movie mov = controller.model.returnMovie(title2);
 
                     if (mov != null) {
-                        mov.addGenre(genreString);
+                        //mov.addGenre(genreString);
+                        //add to hashmap to write out later
+                        controller.model.addToGenres(mov.getId(), genreString);
                     } else {
                         if (yearString.equals("????") || yearString.equals("0")) {
                             Movie m = new Movie(title, 0000, count);
-                            m.addGenre(genreString);
                             controller.model.addToHashmap(title2, m);
                         } else {
                             Movie m = new Movie(title, year, count);
-                            m.addGenre(genreString);
                             controller.model.addToHashmap(title2, m);
                         }
+
+                        controller.model.addToGenres(count, genreString);
 
                         count++;
                     }
@@ -205,7 +206,6 @@ public class Parser {
      */
     public void parseCountries() throws IOException {
         BufferedReader reader = Files.newBufferedReader(Paths.get(Constants.dir + Constants.data[COUNTRIES_LIST]), StandardCharsets.ISO_8859_1);
-        PrintWriter pw = new PrintWriter(new File("testcountry.csv"));
 
         int count = 0;
 
@@ -231,8 +231,8 @@ public class Parser {
 
                         if (mov != null) {
                             //add country to csv
-                            pw.write(mov.getId()+ "," + countryString + ",");
-                            System.out.println(mov.getId()+ "," + countryString);
+                            controller.model.addToCountries(mov.getId(), countryString);
+                            //System.out.println(mov.getId()+ "," + countryString);
                         }
                     }
 
@@ -245,7 +245,6 @@ public class Parser {
         } finally {
             try {
                 reader.close();
-                pw.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }

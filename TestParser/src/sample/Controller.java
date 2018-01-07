@@ -89,4 +89,21 @@ public class Controller {
         pw.close();
         System.out.println("Wrote actors to csv");
     }
+
+    public void writeToCsv(HashMap<Integer, String> hashmap, String file) throws FileNotFoundException {
+        PrintWriter pw = new PrintWriter(new File("test" + file + ".csv"));
+        StringBuilder sb = new StringBuilder();
+
+        hashmap.forEach((Integer x, String y) -> {
+            sb.append(x);
+            sb.append(',');
+            sb.append(y);
+            pw.write(sb.toString());
+            sb.setLength(0);
+            pw.println();
+        });
+
+        pw.close();
+        System.out.println("Wrote " + file + " to csv");
+    }
 }
