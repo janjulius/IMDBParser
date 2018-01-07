@@ -1,6 +1,4 @@
-package sample;
-
-import java.util.ArrayList;
+package Main;
 
 public class Movie {
 

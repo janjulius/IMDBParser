@@ -1,4 +1,4 @@
-package sample;
+package Main;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -10,8 +10,6 @@ import Constants.*;
 public class Parser {
 
     Controller controller;
-    int actorProgress = 0;
-    int actorTotalCount = 22666969;
 
     public final int
             ACTORS_LIST = 0,
@@ -29,7 +27,7 @@ public class Parser {
     }
 
     /**
-     * Parses Movies
+     * Parses Movies & Genres
      *
      * @throws IOException
      * @author Joyce Rosenau/Jos de Vries/Lars
@@ -43,9 +41,11 @@ public class Parser {
         int skipped = 0;
         int year = 0000;
 
+        // Try/catch since this is good practise with reading files.
         try {
             String line = reader.readLine();
             while (line != null) {
+                // Skip intro text
                 if (skipped < 384) {
                     line = reader.readLine();
                     skipped++;
@@ -53,51 +53,42 @@ public class Parser {
                         line = reader.readLine();
                     }
                 } else {
-//
                     int yearSep = line.indexOf('(');
                     int genre = line.indexOf('\t');
 
+                    // Substring to get the values we want
                     String title = line.substring(0, yearSep).trim();
                     String title2 = line.substring(0, (line.indexOf(')') + 1));
                     String yearString = line.substring((yearSep + 1), (yearSep + 5)).trim();
                     String genreString = line.substring(genre).trim();
-//                        if ( yearString.length() > 4 )
-//                        {
-//                            yearString = yearString.substring( 0, 4 );
-//                        }
-//                        final int year = Integer.parseInt( yearString );
+
                     try {
                         // This throws an exception because the string is invalid.
                         year = Integer.parseInt(yearString);
                     } catch (NumberFormatException n) { }
+                    
+                    Movie mov = controller.objectStorage.returnMovie(title2);
 
-
-                    Movie mov = controller.model.returnMovie(title2);
-
+                    // Nullcheck for invalid movies
                     if (mov != null) {
-                        //mov.addGenre(genreString);
                         //add to hashmap to write out later
-                        controller.model.addToGenres(mov.getId(), genreString);
+                        controller.objectStorage.addToGenres(mov.getId(), genreString);
                     } else {
                         if (yearString.equals("????") || yearString.equals("0")) {
                             Movie m = new Movie(title, 0000, count);
-                            controller.model.addToHashmap(title2, m);
+                            controller.objectStorage.addToHashmap(title2, m);
                         } else {
                             Movie m = new Movie(title, year, count);
-                            controller.model.addToHashmap(title2, m);
+                            controller.objectStorage.addToHashmap(title2, m);
                         }
 
-                        controller.model.addToGenres(count, genreString);
+                        controller.objectStorage.addToGenres(count, genreString);
 
                         count++;
                     }
-
                     line = reader.readLine();
                 }
             }
-//            System.out.println("Count: " + count);
-//            System.out.println("Skipped: " + skipped);
-
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
@@ -119,7 +110,6 @@ public class Parser {
 
         String originalLine;
         int skipCounter = 0;
-
         int idCounter = 1;
         String firstName;
         String lastName;
@@ -149,7 +139,7 @@ public class Parser {
                             movieName = movieLine.substring(0, (movieLine.indexOf(')') + 1)).trim();
 
                             // Search up the movie so we can pass it's id in the actor constructor
-                            Movie mov = controller.model.returnMovie(movieName);
+                            Movie mov = controller.objectStorage.returnMovie(movieName);
 
                             if (mov != null){
                                 // Add actor when all data is collected and return actor so we can add movies to it later
@@ -162,6 +152,7 @@ public class Parser {
                             a = this.controller.addActor(idCounter, gender, firstName, "", 0);
                             idCounter++;
                         }
+                        // Tried getting the progressbar to work - Maybe later.
 //                        actorProgress++;
 //                        this.controller.view.setProgressBar(progresscount / totalCount);
                         line = reader.readLine();
@@ -172,7 +163,7 @@ public class Parser {
                     } else {
                         line = line.substring(0, line.indexOf(')') + 1);
                         movieName = line.trim();
-                        Movie mov = controller.model.returnMovie(movieName);
+                        Movie mov = controller.objectStorage.returnMovie(movieName);
 
                         if (mov != null){
                             // Since an actor was defined earlier, we can add additional movies to it now.
@@ -205,6 +196,7 @@ public class Parser {
      * @author Lars
      */
     public void parseCountries() throws IOException {
+
         BufferedReader reader = Files.newBufferedReader(Paths.get(Constants.dir + Constants.data[COUNTRIES_LIST]), StandardCharsets.ISO_8859_1);
 
         int count = 0;
@@ -227,11 +219,11 @@ public class Parser {
                         title = title.substring(0, country);
 
                         //get movie with this title
-                        Movie mov = controller.model.returnMovie(title);
+                        Movie mov = controller.objectStorage.returnMovie(title);
 
                         if (mov != null) {
                             //add country to csv
-                            controller.model.addToCountries(mov.getId(), countryString);
+                            controller.objectStorage.addToCountries(mov.getId(), countryString);
                             //System.out.println(mov.getId()+ "," + countryString);
                         }
                     }
@@ -320,7 +312,7 @@ public class Parser {
                                     //System.out.println(sed);
                                 }
                             } else if (line.startsWith("---")) {
-                                Movie m = controller.model.returnMovie(title);
+                                Movie m = controller.objectStorage.returnMovie(title);
                                 if(m != null) {
                                     m.setBusinessInfo(budget, profits, sed);
                                 }
@@ -347,7 +339,7 @@ public class Parser {
     }
 
     /**
-     * Parses the runningtimes.list
+     * Parses the runningtimes
      *
      * @throws IOException
      * @author Jan Julius
@@ -375,7 +367,7 @@ public class Parser {
 
                         int parsedrtInt = Integer.parseInt(timeRunning);
 
-                        Movie m = controller.model.returnMovie(title);
+                        Movie m = controller.objectStorage.returnMovie(title);
 
                         if (timeRunning != null && m != null) {
                             m.setRunningTime(parsedrtInt);
@@ -397,6 +389,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the movie ratings
+     *
+     * @throws IOException
+     * @author Hielke
+     */
     public void parseMovieRatings() throws IOException {
         BufferedReader reader = Files.newBufferedReader(Paths.get(Constants.dir + Constants.data[RATINGS_LIST]), StandardCharsets.ISO_8859_1);
         boolean dataReached = false;
@@ -457,13 +455,10 @@ public class Parser {
                     title += " " + splitter[yearIndex].substring(0, 6); //Het jaartal wordt aan de title toegevoegd
 
                     // Search the movie hashmap for the corresponding movie, do a nullcheck and add rating
-                    Movie mov = controller.model.returnMovie(title);
+                    Movie mov = controller.objectStorage.returnMovie(title);
 
                     if (mov != null) {
                         mov.setRating(rating);
-                        System.out.println("Added rating for: " + title);
-                    } else {
-                        System.out.println("Skipped!");
                     }
 
                     line = reader.readLine();

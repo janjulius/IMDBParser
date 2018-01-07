@@ -1,4 +1,4 @@
-package sample;
+package Main;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -54,7 +54,7 @@ public class ViewController {
         parseRatingsButton.setDisable(true);
         parseCountriesButton.setDisable(true);
         parseActorsButton.setDisable(true);
-//        writeCsvButton.setDisable(true);
+        writeCsvButton.setDisable(true);
     }
 
     public void setProgressBar(double value){
@@ -70,28 +70,17 @@ public class ViewController {
         ZonedDateTime dt = ZonedDateTime.now();
         this.controller.parser.parseMovie();
         progressbarMovie.setProgress(100);
+        ZonedDateTime dt2 = ZonedDateTime.now();
+        System.out.println(String.format("Parsed list in %s seconds", Duration.between(dt, dt2).getSeconds()));
 
-        int count = 0;
-
-//        System.out.println(Arrays.asList(controller.model.returnMovieHash()));
-        for (String key : controller.model.returnMovieHash().keySet()){
-            if (count < 300){
-                Movie m = controller.model.returnMovieHash().get(key);
-                //System.out.println("Title of movie: " + m.getTitle() + " Key of movie: " + key);
-                count++;
-            }
-            count++;
-        }
-
+        // Enable buttons since this list is now parsed
         parseBusinessButton.setDisable(false);
         parseRunningTimesButton.setDisable(false);
         parseRatingsButton.setDisable(false);
         parseCountriesButton.setDisable(false);
         parseActorsButton.setDisable(false);
+        writeCsvButton.setDisable(false);
         parseMovieButton.setDisable(true);
-
-        ZonedDateTime dt2 = ZonedDateTime.now();
-        System.out.println(String.format("Parsed list in %s seconds", Duration.between(dt, dt2).getSeconds()));
     }
 
     @FXML
@@ -115,7 +104,7 @@ public class ViewController {
                     parseActorsButton.setDisable(true);
 
                     progressbarActors.setProgress(100);
-//                    controller.model.printActors();
+//                    controller.objectStorage.printActors();
 
                     ZonedDateTime dt2 = ZonedDateTime.now();
                     System.out.println(String.format("Parsed list in %s seconds", Duration.between(dt, dt2).getSeconds()));
@@ -132,8 +121,6 @@ public class ViewController {
             else
                 throw e;
         }
-
-
     }
 
     @FXML
@@ -161,17 +148,6 @@ public class ViewController {
         ZonedDateTime dt = ZonedDateTime.now();
         this.controller.parser.parseMovieRatings();
         progressbarRating.setProgress(100);
-        int count = 0;
-
-//        for (String key : controller.model.returnMovieHash().keySet()){
-//            if (count < 300){
-//                Movie m = controller.model.returnMovieHash().get(key);
-//                System.out.println("Title of movie: " + m.getTitle() + " Rating: " + m.getRating());
-//                count++;
-//            }
-//            count++;
-//        }
-
         ZonedDateTime dt2 = ZonedDateTime.now();
         System.out.println(String.format("Parsed list in %s seconds", Duration.between(dt, dt2).getSeconds()));
         parseRatingsButton.setDisable(true);
@@ -189,9 +165,10 @@ public class ViewController {
 
     @FXML
     public void writeCsvButton() throws IOException{
-        controller.writeCsv(controller.model.returnMovieHash());
+        controller.writeMovieToCsv(controller.objectStorage.returnMovieHash());
         controller.writeActorToCsv();
-        controller.writeToCsv(controller.model.getCountryHash(), "country");
-        controller.writeToCsv(controller.model.getGenreHash(), "genre");
+        controller.writeActorMovieToCsv();
+        controller.writeToCsv(controller.objectStorage.getCountryHash(), "Countries");
+        controller.writeToCsv(controller.objectStorage.getGenreHash(), "Genres");
     }
 }

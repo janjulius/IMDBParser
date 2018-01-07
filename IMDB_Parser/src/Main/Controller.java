@@ -1,37 +1,28 @@
-package sample;
+package Main;
+
+import Data.ObjectStorage;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Controller {
 
-    Model model;
+    ObjectStorage objectStorage;
     ViewController view;
     Parser parser;
 
-    public Controller(Model model, ViewController view){
-        this.model = model;
+    public Controller(ObjectStorage objectStorage, ViewController view){
+        this.objectStorage = objectStorage;
         this.view = view;
         view.injectController(this);
     }
 
-    public void addRunningTime(String title, int runningTime){
-        model.setMovieRunningTime(title, runningTime);
-    }
-
     // Add actor but also return it
     public Actor addActor(int id, String gender, String firstname, String lastname, int movieID) {
-            Actor a = this.model.addActor(id, gender, firstname, lastname, movieID);
+            Actor a = this.objectStorage.addActor(id, gender, firstname, lastname, movieID);
             return a;
-    }
-
-    public void addBusiness(String title,
-            double budget,double profits,
-            String sed){
-        model.setBusinesses(title, budget, profits, sed);
     }
 
     public void addParser(Parser parser){
@@ -42,9 +33,12 @@ public class Controller {
         this.view.setup();
     }
 
-    // Writes all the movie objects to csv
-    public void writeCsv(HashMap<String, Movie> movies) throws FileNotFoundException {
-        PrintWriter pw = new PrintWriter(new File("testmovies.csv"));
+    /**
+     * Methods to write the parsed lists to csv data which can then be imported into a database.
+     * Path: out/CSV
+     */
+    public void writeMovieToCsv(HashMap<String, Movie> movies) throws FileNotFoundException {
+        PrintWriter pw = new PrintWriter(new File("out\\CSV\\Movies.csv"));
         StringBuilder sb = new StringBuilder();
 
         movies.forEach((String s, Movie m) -> {
@@ -66,16 +60,36 @@ public class Controller {
             pw.println();
         });
 
-//        pw.write(sb.toString());
         pw.close();
-        System.out.println("Wrote movies to csv");
+        System.out.println("Wrote Movies to csv");
     }
 
     public void writeActorToCsv() throws FileNotFoundException {
-        PrintWriter pw = new PrintWriter(new File("testActors.csv"));
+        PrintWriter pw = new PrintWriter(new File("out\\CSV\\Actors.csv"));
         StringBuilder sb = new StringBuilder();
 
-        model.returnActors().forEach((Actor a) -> {
+        objectStorage.returnActors().forEach((Actor a) -> {
+            sb.append(a.getId());
+            sb.append(',');
+            sb.append(a.getFirstName());
+            sb.append(',');
+            sb.append(a.getLastName());
+            sb.append(',');
+            sb.append(a.getGender());
+            pw.write(sb.toString());
+            sb.setLength(0);
+            pw.println();
+        });
+
+        pw.close();
+        System.out.println("Wrote Actors to csv");
+    }
+
+    public void writeActorMovieToCsv() throws FileNotFoundException {
+        PrintWriter pw = new PrintWriter(new File("out\\CSV\\ActorsInMovies.csv"));
+        StringBuilder sb = new StringBuilder();
+
+        objectStorage.returnActors().forEach((Actor a) -> {
             for (int movieID : a.getMovies()){
                 sb.append(a.getId());
                 sb.append(',');
@@ -87,11 +101,11 @@ public class Controller {
         });
 
         pw.close();
-        System.out.println("Wrote actors to csv");
+        System.out.println("Wrote Actors in Movies to csv");
     }
 
     public void writeToCsv(HashMap<Integer, String> hashmap, String file) throws FileNotFoundException {
-        PrintWriter pw = new PrintWriter(new File("test" + file + ".csv"));
+        PrintWriter pw = new PrintWriter(new File("out\\CSV\\" + file + ".csv"));
         StringBuilder sb = new StringBuilder();
 
         hashmap.forEach((Integer x, String y) -> {

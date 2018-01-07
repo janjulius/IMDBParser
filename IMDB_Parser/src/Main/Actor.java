@@ -1,4 +1,4 @@
-package sample;
+package Main;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +37,8 @@ public class Actor {
         return this.movies;
     }
 
+    public void setID(int id) { this.id = id; }
+
     public void setGender(String gender){
         this.gender = gender;
     }
@@ -48,10 +50,6 @@ public class Actor {
     public void setLastName(String lastName){
         this.lastName = lastName;
     }
-
-
-
-
 
     public void addMovie(int movieID){
         movies.add(movieID);

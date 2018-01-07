@@ -1,24 +1,18 @@
-package sample;
+package Main;
 
+import Data.ObjectStorage;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.io.File;
-import java.io.FileReader;
-import java.time.Duration;
-import java.time.ZonedDateTime;
-import java.util.ArrayList;
-import java.util.Scanner;
-
 public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
         // Load in the .fxml
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("sample.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../Fxml/parser.fxml"));
         Parent root = (Parent) fxmlLoader.load();
 
         // Extract controller
@@ -29,8 +23,8 @@ public class Main extends Application {
         primaryStage.show();
 
         // Initializing classes
-        Model model = new Model();
-        Controller controller = new Controller(model, view);
+        ObjectStorage objectStorage = new ObjectStorage();
+        Controller controller = new Controller(objectStorage, view);
         Parser parser = new Parser(controller);
 
         // Initialize some values
