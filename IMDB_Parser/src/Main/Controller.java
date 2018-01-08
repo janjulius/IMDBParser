@@ -41,7 +41,6 @@ public class Controller {
      * Path: out/CSV
      */
     public void writeMovieToCsv(HashMap<String, Movie> movies) throws FileNotFoundException {
-        PrintWriter pw = new PrintWriter(new File("out\\CSV\\Movies.csv"));
         StringBuilder sb = new StringBuilder();
 
         movies.forEach((String s, Movie m) -> {
@@ -68,7 +67,6 @@ public class Controller {
     }
 
     public void writeActorToCsv() throws FileNotFoundException {
-        PrintWriter pw = new PrintWriter(new File("out\\CSV\\Actors.csv"));
         StringBuilder sb = new StringBuilder();
 
         objectStorage.returnActors().forEach((Actor a) -> {
@@ -89,7 +87,6 @@ public class Controller {
     }
 
     public void writeActorMovieToCsv() throws FileNotFoundException {
-        PrintWriter pw = new PrintWriter(new File("out\\CSV\\ActorsInMovies.csv"));
         StringBuilder sb = new StringBuilder();
 
         objectStorage.returnActors().forEach((Actor a) -> {
@@ -108,7 +105,6 @@ public class Controller {
     }
 
     public void writeToCsv(HashMap<Integer, String> hashmap, String file) throws FileNotFoundException {
-        PrintWriter pw = new PrintWriter(new File("out\\CSV\\" + file + ".csv"));
         StringBuilder sb = new StringBuilder();
 
         hashmap.forEach((Integer x, String y) -> {
