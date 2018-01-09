@@ -98,13 +98,16 @@ public class ViewController {
             new Thread(() ->
             {
                 try{
-                    this.controller.parser.parseActors(brMale, "m");
-                    this.controller.parser.parseActors(brFemale, "f");
+                    this.controller.parser.parseActors(brMale, "m", 1);
+
+                    // Grab the last id so we can start female actors with it
+                    Actor a = controller.objectStorage.returnActors().get(controller.objectStorage.returnActors().size() -1);
+                    int startIDFemale = a.getId();
+
+                    this.controller.parser.parseActors(brFemale, "f", startIDFemale);
 
                     parseActorsButton.setDisable(true);
-
                     progressbarActors.setProgress(100);
-//                    controller.objectStorage.printActors();
 
                     ZonedDateTime dt2 = ZonedDateTime.now();
                     System.out.println(String.format("Parsed list in %s seconds", Duration.between(dt, dt2).getSeconds()));

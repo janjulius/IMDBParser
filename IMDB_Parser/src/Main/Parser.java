@@ -63,27 +63,33 @@ public class Parser {
                         String yearString = line.substring((yearSep + 1), (yearSep + 5)).trim();
                         String genreString = line.substring(genre).trim();
 
-                        try {
-                            // This throws an exception because the string is invalid.
-                            year = Integer.parseInt(yearString);
-                        } catch (NumberFormatException n) { }
+                        if (title2.contains(",") || title2.length() == 0){
+                            System.out.println("Skipped: " + title2);
+                            line = reader.readLine();
+                        }
+                        else {
+                            try {
+                                // This throws an exception because the string is invalid.
+                                year = Integer.parseInt(yearString);
+                            } catch (NumberFormatException n) { }
 
-                        Movie mov = controller.objectStorage.returnMovie(title2);
+                            Movie mov = controller.objectStorage.returnMovie(title2);
 
-                        // Nullcheck for invalid movies
-                        if (mov != null) {
-                            //add to hashmap to write out later
-                            controller.objectStorage.addToGenres(mov.getId(), genreString);
-                        } else {
-                            if (yearString.equals("????") || yearString.equals("0")) {
-                                Movie m = new Movie(title, 0000, count);
-                                controller.objectStorage.addToHashmap(title2, m);
+                            // Nullcheck for invalid movies
+                            if (mov != null) {
+                                //add to hashmap to write out later
+                                controller.objectStorage.addToGenres(mov.getId(), genreString);
                             } else {
-                                Movie m = new Movie(title, year, count);
-                                controller.objectStorage.addToHashmap(title2, m);
+                                if (yearString.equals("????") || yearString.equals("0")) {
+                                    Movie m = new Movie(title, 0000, count);
+                                    controller.objectStorage.addToHashmap(title2, m);
+                                } else {
+                                    Movie m = new Movie(title, year, count);
+                                    controller.objectStorage.addToHashmap(title2, m);
+                                }
+                                controller.objectStorage.addToGenres(count, genreString);
+                                count++;
                             }
-                            controller.objectStorage.addToGenres(count, genreString);
-                            count++;
                         }
                     }
                     line = reader.readLine();
@@ -106,11 +112,11 @@ public class Parser {
      * @throws IOException
      * @author Jos de Vries
      */
-    public void parseActors(BufferedReader reader, String gender) throws IOException {
+    public void parseActors(BufferedReader reader, String gender, int id) throws IOException {
 
         String originalLine;
         int skipCounter = 0;
-        int idCounter = 1;
+        int idCounter = id;
         String firstName;
         String lastName;
         String movieName;
