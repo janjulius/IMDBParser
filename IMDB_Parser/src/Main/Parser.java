@@ -294,7 +294,9 @@ public class Parser {
                                     line = reader.readLine();
                                 } else {
                                     if(line.startsWith("USD")) {
-                                        budget = Double.parseDouble(line.replaceAll("[^\\d]", "").trim());
+                                        double a = Double.parseDouble(line.replaceAll("[^\\d]", "").trim());
+                                        if(budget < a)
+                                            budget = a;
                                     }
                                     //System.out.println(budget);
                                 }
@@ -305,9 +307,11 @@ public class Parser {
                                 if (line.substring(line.indexOf("GR:") + 4, line.length()).startsWith("\"")) {
                                     line = reader.readLine();
                                 } else {
-
-                                    profits = Double.parseDouble(line.replaceAll("\\(.*\\)", "").replaceAll("[^\\d]", "").trim());
-
+                                    if(line.startsWith("USD")) {
+                                        double a = Double.parseDouble(line.replaceAll("\\(.*\\)", "").replaceAll("[^\\d]", "").trim());
+                                        if(profits < a)
+                                            profits = a;
+                                    }
                                     //System.out.println(profits);
                                 }
                             }
