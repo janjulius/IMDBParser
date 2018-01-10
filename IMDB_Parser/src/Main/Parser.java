@@ -287,7 +287,9 @@ public class Parser {
                                 if (line.substring(line.indexOf("BT:") + 4, line.length()).startsWith("\"")) {
                                     line = reader.readLine();
                                 } else {
-                                    budget = Double.parseDouble(line.replaceAll("[^\\d]", "").trim());
+                                    if(line.startsWith("USD")) {
+                                        budget = Double.parseDouble(line.replaceAll("[^\\d]", "").trim());
+                                    }
                                     //System.out.println(budget);
                                 }
                             }

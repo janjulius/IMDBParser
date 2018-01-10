@@ -8,6 +8,8 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.HashMap;
 
+import Constants.*;
+
 public class Controller {
 
     ObjectStorage objectStorage;
@@ -41,7 +43,7 @@ public class Controller {
      * Path: out/CSV
      */
     public void writeMovieToCsv(HashMap<String, Movie> movies) throws FileNotFoundException {
-        PrintWriter pw = new PrintWriter(new File("out\\CSV\\Movies.csv"));
+        PrintWriter pw = new PrintWriter(new File(Constants.csvDir + "Movies.csv"));
         StringBuilder sb = new StringBuilder();
 
         movies.forEach((String s, Movie m) -> {
@@ -64,11 +66,11 @@ public class Controller {
         });
 
         pw.close();
-        System.out.println("Wrote Movies to csv");
+        System.out.println("Wrote Movies to csv at " + Constants.csvDir);
     }
 
     public void writeActorToCsv() throws FileNotFoundException {
-        PrintWriter pw = new PrintWriter(new File("out\\CSV\\Actors.csv"));
+        PrintWriter pw = new PrintWriter(new File(Constants.csvDir + "Actors.csv"));
         StringBuilder sb = new StringBuilder();
 
         objectStorage.returnActors().forEach((Actor a) -> {
@@ -85,11 +87,11 @@ public class Controller {
         });
 
         pw.close();
-        System.out.println("Wrote Actors to csv");
+        System.out.println("Wrote Actors to csv at " + Constants.csvDir);
     }
 
     public void writeActorMovieToCsv() throws FileNotFoundException {
-        PrintWriter pw = new PrintWriter(new File("out\\CSV\\ActorsInMovies.csv"));
+        PrintWriter pw = new PrintWriter(new File(Constants.csvDir + "ActorsInMovies.csv"));
         StringBuilder sb = new StringBuilder();
 
         objectStorage.returnActors().forEach((Actor a) -> {
@@ -104,11 +106,11 @@ public class Controller {
         });
 
         pw.close();
-        System.out.println("Wrote Actors in Movies to csv");
+        System.out.println("Wrote Actors in Movies to csv at " + Constants.csvDir);
     }
 
     public void writeToCsv(HashMap<Integer, String> hashmap, String file) throws FileNotFoundException {
-        PrintWriter pw = new PrintWriter(new File("out\\CSV\\" + file + ".csv"));
+        PrintWriter pw = new PrintWriter(new File(Constants.csvDir + file + ".csv"));
         StringBuilder sb = new StringBuilder();
 
         hashmap.forEach((Integer x, String y) -> {
@@ -121,6 +123,6 @@ public class Controller {
         });
 
         pw.close();
-        System.out.println("Wrote " + file + " to csv");
+        System.out.println("Wrote " + file + " to csv at " + Constants.csvDir );
     }
 }
