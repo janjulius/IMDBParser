@@ -11,6 +11,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.Duration;
 import java.time.ZonedDateTime;
+import java.util.Map;
 
 import Constants.*;
 
@@ -102,7 +103,7 @@ public class ViewController {
 
                     // Grab the last id so we can start female actors with it
                     Actor a = controller.objectStorage.returnActors().get(controller.objectStorage.returnActors().size() -1);
-                    int startIDFemale = a.getId();
+                    int startIDFemale = a.getId() + 1;
 
                     this.controller.parser.parseActors(brFemale, "f", startIDFemale);
 
@@ -111,6 +112,12 @@ public class ViewController {
 
                     ZonedDateTime dt2 = ZonedDateTime.now();
                     System.out.println(String.format("Parsed list in %s seconds", Duration.between(dt, dt2).getSeconds()));
+
+                    for (Actor b : controller.objectStorage.returnActors()){
+                        if (b.getId() > 46350 && b.getId() < 46375){
+                            System.out.println("id: " + b.getId() + "Name: " + b.getFirstName());
+                        }
+                    }
                 }
                 catch(IOException e){
                     throw new RuntimeException();

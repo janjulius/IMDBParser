@@ -57,16 +57,30 @@ public class Parser {
                         int yearSep = line.indexOf('(');
                         int genre = line.indexOf('\t');
 
+                        if (line.startsWith("((")){
+                            line = reader.readLine();
+                            continue;
+                        }
+
+                        if (line.startsWith(("("))) {
+                            String yearline = line.substring(1, line.length() - 1);
+                            yearSep = yearline.indexOf('(');
+                        }
+
                         // Substring to get the values we want
                         String title = line.substring(0, yearSep).trim();
                         String title2 = line.substring(0, (line.indexOf(')') + 1));
                         String yearString = line.substring((yearSep + 1), (yearSep + 5)).trim();
                         String genreString = line.substring(genre).trim();
 
-                        if (title2.contains(",") || title2.length() == 0){
+                        if (title2.contains(",")){
                             System.out.println("Skipped: " + title2);
                             line = reader.readLine();
                         }
+                        else if (title2.length() == 0) {
+                            line = reader.readLine();
+                        }
+
                         else {
                             try {
                                 // This throws an exception because the string is invalid.
@@ -139,6 +153,21 @@ public class Parser {
                         if (line.contains(",")) {
                             lastName = line.substring(0, line.indexOf(','));
                             firstName = line.substring((line.indexOf(',') + 1)).trim();
+
+                            if (firstName.contains("\"") && lastName.contains("\"")) {
+                                line = reader.readLine();
+                                continue;
+                            }
+
+                            if (firstName.length() != 0 && firstName.contains(",")) {
+                                line = reader.readLine();
+                                continue;
+                            }
+
+                            if (lastName.length() != 0 && lastName.contains(",")) {
+                                line = reader.readLine();
+                                continue;
+                            }
 
                             int indexFilter = originalLine.indexOf(firstName) + firstName.length();
                             String movieLine = originalLine.substring(indexFilter);

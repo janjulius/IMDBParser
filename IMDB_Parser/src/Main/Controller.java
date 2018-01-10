@@ -92,26 +92,17 @@ public class Controller {
         StringBuilder sb = new StringBuilder();
 
         objectStorage.returnActors().forEach((Actor a) -> {
-            if (!a.getFirstName().contains("\"") && !a.getLastName().contains("\"")){
-                sb.append(a.getId());
-                sb.append(',');
-
-                if (a.getFirstName().length() != 0 && !a.getFirstName().contains(",")){
+                    sb.append(a.getId());
+                    sb.append(',');
                     sb.append(a.getFirstName());
-                }
-                sb.append(',');
-
-                if (a.getLastName().length() != 0 && !a.getLastName().contains(",")){
+                    sb.append(',');
                     sb.append(a.getLastName());
-                }
-                sb.append(',');
-
-                sb.append(a.getGender());
-                pw.write(sb.toString());
-                sb.setLength(0);
-                pw.println();
-            }
-        });
+                    sb.append(',');
+                    sb.append(a.getGender());
+                    pw.write(sb.toString());
+                    sb.setLength(0);
+                    pw.println();
+                });
 
         pw.close();
         System.out.println("Wrote Actors to csv at " + Constants.csvDir);
