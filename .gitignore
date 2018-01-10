@@ -23,5 +23,5 @@ hs_err_pid*
 
 *.xml
 *.csv
-/out
 .idea
+/out

@@ -47,22 +47,40 @@ public class Controller {
         StringBuilder sb = new StringBuilder();
 
         movies.forEach((String s, Movie m) -> {
-            sb.append(m.getId());
-            sb.append(',');
-            sb.append(m.getTitle());
-            sb.append(',');
-            sb.append(Integer.toString(m.getYear()));
-            sb.append(',');
-            sb.append(Integer.toString(m.getRunningTime()));
-            sb.append(',');
-            sb.append(Double.toString(m.getRating()));
-            sb.append(',');
-            sb.append(Double.toString(m.getBudget()));
-            sb.append(',');
-            sb.append(Double.toString(m.getProfits()));
-            pw.write(sb.toString());
-            sb.setLength(0);
-            pw.println();
+            if (m.getTitle().length() > 0){
+                sb.append(m.getId());
+                sb.append(',');
+                sb.append(m.getTitle());
+                sb.append(',');
+
+                if (m.getYear() != 0){
+                    sb.append(Integer.toString(m.getYear()));
+                }
+                sb.append(',');
+
+                if (m.getRunningTime() != 0){
+                    sb.append(Integer.toString(m.getRunningTime()));
+                }
+                sb.append(',');
+
+                if (m.getRating() != 0){
+                    sb.append(Double.toString(m.getRating()));
+                }
+                sb.append(',');
+
+                if (m.getBudget() != 0){
+                    sb.append(Double.toString(m.getBudget()));
+                }
+                sb.append(',');
+
+                if (m.getProfits() != 0){
+                    sb.append(Double.toString(m.getProfits()));
+                }
+
+                pw.write(sb.toString());
+                sb.setLength(0);
+                pw.println();
+            }
         });
 
         pw.close();
@@ -74,16 +92,25 @@ public class Controller {
         StringBuilder sb = new StringBuilder();
 
         objectStorage.returnActors().forEach((Actor a) -> {
-            sb.append(a.getId());
-            sb.append(',');
-            sb.append(a.getFirstName());
-            sb.append(',');
-            sb.append(a.getLastName());
-            sb.append(',');
-            sb.append(a.getGender());
-            pw.write(sb.toString());
-            sb.setLength(0);
-            pw.println();
+            if (!a.getFirstName().contains("\"") && !a.getLastName().contains("\"")){
+                sb.append(a.getId());
+                sb.append(',');
+
+                if (a.getFirstName().length() != 0 && !a.getFirstName().contains(",")){
+                    sb.append(a.getFirstName());
+                }
+                sb.append(',');
+
+                if (a.getLastName().length() != 0 && !a.getLastName().contains(",")){
+                    sb.append(a.getLastName());
+                }
+                sb.append(',');
+
+                sb.append(a.getGender());
+                pw.write(sb.toString());
+                sb.setLength(0);
+                pw.println();
+            }
         });
 
         pw.close();

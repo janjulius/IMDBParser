@@ -2,11 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="baf56ee4-4714-416d-b471-4b0e0285c158" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/IMDBParser.iml" afterPath="$PROJECT_DIR$/.idea/IMDBParser.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/IMDB_Parser/out/production/IMDBParser/sample/sample.fxml" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/IMDB_Parser/out/production/TestParser/Fxml/parser.fxml" afterPath="$PROJECT_DIR$/IMDB_Parser/out/Fxml/parser.fxml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/IMDB_Parser/src/Constants/Constants.java" afterPath="$PROJECT_DIR$/IMDB_Parser/src/Constants/Constants.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/IMDB_Parser/src/Main/Controller.java" afterPath="$PROJECT_DIR$/IMDB_Parser/src/Main/Controller.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/IMDB_Parser/src/Main/Parser.java" afterPath="$PROJECT_DIR$/IMDB_Parser/src/Main/Parser.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/IMDB_Parser/src/Main/ViewController.java" afterPath="$PROJECT_DIR$/IMDB_Parser/src/Main/ViewController.java" />
     </list>
     <ignored path="$PROJECT_DIR$/TestParser/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -28,12 +30,24 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Parser.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Parser.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/IMDB_Parser/src/Main/Parser.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="351">
-              <caret line="291" column="37" lean-forward="false" selection-start-line="291" selection-start-column="37" selection-end-line="291" selection-end-column="37" />
-              <folding />
+              <caret line="297" column="37" lean-forward="false" selection-start-line="297" selection-start-column="37" selection-end-line="297" selection-end-column="37" />
+              <folding>
+                <marker date="1515581462215" expanded="true" signature="4226:7944" ph="{...}" />
+                <marker date="1515581462215" expanded="true" signature="6493:6682" ph="//..." />
+                <marker date="1515581462215" expanded="true" signature="6805:6938" ph="//..." />
+                <marker date="1515581462215" expanded="true" signature="7950:8039" ph="/**...*/" />
+                <marker date="1515581462215" expanded="true" signature="8092:9722" ph="{...}" />
+                <marker date="1515581462215" expanded="true" signature="9728:9822" ph="/**...*/" />
+                <marker date="1515581462215" expanded="true" signature="9874:13764" ph="{...}" />
+                <marker date="1515581462215" expanded="true" signature="13770:13872" ph="/**...*/" />
+                <marker date="1515581462215" expanded="true" signature="13928:15621" ph="{...}" />
+                <marker date="1515581462215" expanded="true" signature="15627:15726" ph="/**...*/" />
+                <marker date="1515581462215" expanded="true" signature="15782:19384" ph="{...}" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -42,17 +56,17 @@
         <entry file="file://$PROJECT_DIR$/IMDB_Parser/src/Constants/Constants.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="108">
-              <caret line="4" column="92" lean-forward="false" selection-start-line="4" selection-start-column="92" selection-end-line="4" selection-end-column="92" />
+              <caret line="4" column="46" lean-forward="false" selection-start-line="4" selection-start-column="46" selection-end-line="4" selection-end-column="46" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Controller.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Controller.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/IMDB_Parser/src/Main/Controller.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="891">
-              <caret line="45" column="80" lean-forward="false" selection-start-line="45" selection-start-column="80" selection-end-line="45" selection-end-column="80" />
+            <state relative-caret-position="280">
+              <caret line="138" column="104" lean-forward="false" selection-start-line="138" selection-start-column="104" selection-end-line="138" selection-end-column="104" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -73,9 +87,9 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
+        <option value="$PROJECT_DIR$/IMDB_Parser/src/Main/Parser.java" />
         <option value="$PROJECT_DIR$/IMDB_Parser/src/Constants/Constants.java" />
         <option value="$PROJECT_DIR$/IMDB_Parser/src/Main/Controller.java" />
-        <option value="$PROJECT_DIR$/IMDB_Parser/src/Main/Parser.java" />
       </list>
     </option>
   </component>
@@ -150,40 +164,6 @@
               <item name="out" type="462c0819:PsiDirectoryNode" />
               <item name="production" type="462c0819:PsiDirectoryNode" />
               <item name="IMDB_Parser" type="462c0819:PsiDirectoryNode" />
-              <item name="Fxml" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="IMDBParser" type="b2602c69:ProjectViewProjectNode" />
-              <item name="IMDBParser" type="462c0819:PsiDirectoryNode" />
-              <item name="IMDB_Parser" type="462c0819:PsiDirectoryNode" />
-              <item name="out" type="462c0819:PsiDirectoryNode" />
-              <item name="production" type="462c0819:PsiDirectoryNode" />
-              <item name="IMDBParser" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="IMDBParser" type="b2602c69:ProjectViewProjectNode" />
-              <item name="IMDBParser" type="462c0819:PsiDirectoryNode" />
-              <item name="IMDB_Parser" type="462c0819:PsiDirectoryNode" />
-              <item name="out" type="462c0819:PsiDirectoryNode" />
-              <item name="production" type="462c0819:PsiDirectoryNode" />
-              <item name="IMDBParser" type="462c0819:PsiDirectoryNode" />
-              <item name="sample" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="IMDBParser" type="b2602c69:ProjectViewProjectNode" />
-              <item name="IMDBParser" type="462c0819:PsiDirectoryNode" />
-              <item name="IMDB_Parser" type="462c0819:PsiDirectoryNode" />
-              <item name="out" type="462c0819:PsiDirectoryNode" />
-              <item name="production" type="462c0819:PsiDirectoryNode" />
-              <item name="TestParser" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="IMDBParser" type="b2602c69:ProjectViewProjectNode" />
-              <item name="IMDBParser" type="462c0819:PsiDirectoryNode" />
-              <item name="IMDB_Parser" type="462c0819:PsiDirectoryNode" />
-              <item name="out" type="462c0819:PsiDirectoryNode" />
-              <item name="production" type="462c0819:PsiDirectoryNode" />
-              <item name="TestParser" type="462c0819:PsiDirectoryNode" />
               <item name="Fxml" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -337,12 +317,12 @@
       <option name="presentableId" value="Default" />
       <updated>1515404860835</updated>
       <workItem from="1515404864750" duration="3174000" />
-      <workItem from="1515581194291" duration="219000" />
+      <workItem from="1515581194291" duration="334000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="3393000" />
+    <option name="totallyTimeSpent" value="3508000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-4" y="-4" width="1928" height="1044" extended-state="6" />
@@ -400,7 +380,19 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="7182">
           <caret line="271" column="47" lean-forward="true" selection-start-line="271" selection-start-column="47" selection-end-line="271" selection-end-column="47" />
-          <folding />
+          <folding>
+            <marker date="1515581462215" expanded="true" signature="4226:7944" ph="{...}" />
+            <marker date="1515581462215" expanded="true" signature="6493:6682" ph="//..." />
+            <marker date="1515581462215" expanded="true" signature="6805:6938" ph="//..." />
+            <marker date="1515581462215" expanded="true" signature="7950:8039" ph="/**...*/" />
+            <marker date="1515581462215" expanded="true" signature="8092:9722" ph="{...}" />
+            <marker date="1515581462215" expanded="true" signature="9728:9822" ph="/**...*/" />
+            <marker date="1515581462215" expanded="true" signature="9874:13764" ph="{...}" />
+            <marker date="1515581462215" expanded="true" signature="13770:13872" ph="/**...*/" />
+            <marker date="1515581462215" expanded="true" signature="13928:15621" ph="{...}" />
+            <marker date="1515581462215" expanded="true" signature="15627:15726" ph="/**...*/" />
+            <marker date="1515581462215" expanded="true" signature="15782:19384" ph="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -419,24 +411,6 @@
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/IMDB_Parser/src/Main/Controller.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="891">
-          <caret line="45" column="80" lean-forward="false" selection-start-line="45" selection-start-column="80" selection-end-line="45" selection-end-column="80" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/IMDB_Parser/src/Constants/Constants.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="4" column="92" lean-forward="false" selection-start-line="4" selection-start-column="92" selection-end-line="4" selection-end-column="92" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -451,8 +425,38 @@
     <entry file="file://$PROJECT_DIR$/IMDB_Parser/src/Main/Parser.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="351">
-          <caret line="291" column="37" lean-forward="false" selection-start-line="291" selection-start-column="37" selection-end-line="291" selection-end-column="37" />
+          <caret line="297" column="37" lean-forward="false" selection-start-line="297" selection-start-column="37" selection-end-line="297" selection-end-column="37" />
+          <folding>
+            <marker date="1515581462215" expanded="true" signature="4226:7944" ph="{...}" />
+            <marker date="1515581462215" expanded="true" signature="6493:6682" ph="//..." />
+            <marker date="1515581462215" expanded="true" signature="6805:6938" ph="//..." />
+            <marker date="1515581462215" expanded="true" signature="7950:8039" ph="/**...*/" />
+            <marker date="1515581462215" expanded="true" signature="8092:9722" ph="{...}" />
+            <marker date="1515581462215" expanded="true" signature="9728:9822" ph="/**...*/" />
+            <marker date="1515581462215" expanded="true" signature="9874:13764" ph="{...}" />
+            <marker date="1515581462215" expanded="true" signature="13770:13872" ph="/**...*/" />
+            <marker date="1515581462215" expanded="true" signature="13928:15621" ph="{...}" />
+            <marker date="1515581462215" expanded="true" signature="15627:15726" ph="/**...*/" />
+            <marker date="1515581462215" expanded="true" signature="15782:19384" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/IMDB_Parser/src/Constants/Constants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="4" column="46" lean-forward="false" selection-start-line="4" selection-start-column="46" selection-end-line="4" selection-end-column="46" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/IMDB_Parser/src/Main/Controller.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="280">
+          <caret line="138" column="104" lean-forward="false" selection-start-line="138" selection-start-column="104" selection-end-line="138" selection-end-column="104" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
