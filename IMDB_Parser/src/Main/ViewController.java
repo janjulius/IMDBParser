@@ -113,11 +113,11 @@ public class ViewController {
                     ZonedDateTime dt2 = ZonedDateTime.now();
                     System.out.println(String.format("Parsed list in %s seconds", Duration.between(dt, dt2).getSeconds()));
 
-                    for (Actor b : controller.objectStorage.returnActors()){
-                        if (b.getId() > 46350 && b.getId() < 46375){
-                            System.out.println("id: " + b.getId() + "Name: " + b.getFirstName());
-                        }
-                    }
+//                    for (Actor b : controller.objectStorage.returnActors()){
+//                        if (b.getId() > 46350 && b.getId() < 46375){
+//                            System.out.println("id: " + b.getId() + "Name: " + b.getFirstName());
+//                        }
+//                    }
                 }
                 catch(IOException e){
                     throw new RuntimeException();

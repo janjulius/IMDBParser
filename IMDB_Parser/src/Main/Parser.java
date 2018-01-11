@@ -52,6 +52,7 @@ public class Parser {
                 } else {
                     if (line.startsWith("\"")) {
                         line = reader.readLine();
+                        continue;
                     }
                     else{
                         int yearSep = line.indexOf('(');
@@ -63,6 +64,10 @@ public class Parser {
                         }
 
                         if (line.startsWith(("("))) {
+                            if (line.contains(",")){
+                                line = reader.readLine();
+                                continue;
+                            }
                             String yearline = line.substring(1, line.length() - 1);
                             yearSep = yearline.indexOf('(');
                         }
@@ -74,11 +79,12 @@ public class Parser {
                         String genreString = line.substring(genre).trim();
 
                         if (title2.contains(",")){
-                            System.out.println("Skipped: " + title2);
                             line = reader.readLine();
+                            continue;
                         }
                         else if (title2.length() == 0) {
                             line = reader.readLine();
+                            continue;
                         }
 
                         else {
