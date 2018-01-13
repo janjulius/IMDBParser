@@ -42,7 +42,10 @@ public class Controller {
      * Path: out/CSV
      */
     public void writeMovieToCsv(HashMap<String, Movie> movies) throws FileNotFoundException {
-        PrintWriter pw = new PrintWriter(new OutputStreamWriter(new FileOutputStream(Constants.csvDir + "Movies.csv"), StandardCharsets.UTF_8), false);
+        PrintWriter movieWriter = new PrintWriter(new OutputStreamWriter(new FileOutputStream(Constants.csvDir + "Movies.csv"), StandardCharsets.UTF_8), false);
+        PrintWriter genreWriter = new PrintWriter(new OutputStreamWriter(new FileOutputStream(Constants.csvDir + "Genres.csv"), StandardCharsets.UTF_8), false);
+        PrintWriter countryWriter = new PrintWriter(new OutputStreamWriter(new FileOutputStream(Constants.csvDir + "Countries.csv"), StandardCharsets.UTF_8), false);
+
         StringBuilder sb = new StringBuilder();
 
         movies.forEach((String s, Movie m) -> {
@@ -76,14 +79,26 @@ public class Controller {
                     sb.append(Double.toString(m.getProfits()));
                 }
 
-                pw.write(sb.toString());
+                for(String c  : m.getCountries()){
+                    countryWriter.println(m.getId() + "," + c);
+                }
+
+                for(String g  : m.getGenres()) {
+                    genreWriter.println(m.getId() + "," + g);
+                }
+
+                movieWriter.write(sb.toString());
                 sb.setLength(0);
-                pw.println();
+                movieWriter.println();
             }
         });
 
-        pw.close();
+        countryWriter.close();
+        genreWriter.close();
+        movieWriter.close();
         System.out.println("Wrote Movies to csv at " + Constants.csvDir);
+        System.out.println("Wrote Countries to csv at " + Constants.csvDir);
+        System.out.println("Wrote Genres to csv at " + Constants.csvDir);
     }
 
     public void writeActorToCsv() throws FileNotFoundException {
@@ -124,22 +139,5 @@ public class Controller {
 
         pw.close();
         System.out.println("Wrote Actors in Movies to csv at " + Constants.csvDir);
-    }
-
-    public void writeToCsv(HashMap<Integer, String> hashmap, String file) throws FileNotFoundException {
-        PrintWriter pw = new PrintWriter(new OutputStreamWriter(new FileOutputStream(Constants.csvDir + file + ".csv"), StandardCharsets.UTF_8), false);
-        StringBuilder sb = new StringBuilder();
-
-        hashmap.forEach((Integer x, String y) -> {
-            sb.append(x);
-            sb.append(',');
-            sb.append(y);
-            pw.write(sb.toString());
-            sb.setLength(0);
-            pw.println();
-        });
-
-        pw.close();
-        System.out.println("Wrote " + file + " to csv at " + Constants.csvDir );
     }
 }

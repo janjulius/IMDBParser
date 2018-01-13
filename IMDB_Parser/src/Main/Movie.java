@@ -1,5 +1,7 @@
 package Main;
 
+import java.util.ArrayList;
+
 public class Movie {
 
     private int id;
@@ -10,13 +12,26 @@ public class Movie {
     private double budget;
     private double profits;
     private String sed; //start end date
+    private ArrayList<String> countries;
+    private ArrayList<String> genres;
 
 
     public Movie(String title, int year, int id){
         this.title = title;
         this.year = year;
         this.id = id;
+        countries = new ArrayList();
+        genres = new ArrayList();
+
     }
+
+    //country list
+    public void addCountry(String country){ countries.add(country); }
+    public ArrayList<String> getCountries() { return countries; }
+
+    //genre list
+    public void addGenre(String genre){ genres.add(genre); }
+    public ArrayList<String> getGenres() { return genres; }
 
     public String getTitle(){
         return title;

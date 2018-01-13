@@ -178,8 +178,6 @@ public class ViewController {
         controller.writeMovieToCsv(controller.objectStorage.returnMovieHash());
         controller.writeActorToCsv();
         controller.writeActorMovieToCsv();
-        controller.writeToCsv(controller.objectStorage.getCountryHash(), "Countries");
-        controller.writeToCsv(controller.objectStorage.getGenreHash(), "Genres");
     }
 
     // Exit the application.

@@ -53,18 +53,17 @@ public class Parser {
                     if (line.startsWith("\"")) {
                         line = reader.readLine();
                         continue;
-                    }
-                    else{
+                    } else {
                         int yearSep = line.indexOf('(');
                         int genre = line.indexOf('\t');
 
-                        if (line.startsWith("((")){
+                        if (line.startsWith("((")) {
                             line = reader.readLine();
                             continue;
                         }
 
                         if (line.startsWith(("("))) {
-                            if (line.contains(",")){
+                            if (line.contains(",")) {
                                 line = reader.readLine();
                                 continue;
                             }
@@ -78,36 +77,37 @@ public class Parser {
                         String yearString = line.substring((yearSep + 1), (yearSep + 5)).trim();
                         String genreString = line.substring(genre).trim();
 
-                        if (title2.contains(",")){
+                        if (title2.contains(",")) {
                             line = reader.readLine();
                             continue;
-                        }
-                        else if (title2.length() == 0) {
+                        } else if (title2.length() == 0) {
                             line = reader.readLine();
                             continue;
                         }
 
+                        // Succesfully found movie
                         else {
                             try {
                                 // This throws an exception because the string is invalid.
                                 year = Integer.parseInt(yearString);
-                            } catch (NumberFormatException n) { }
+                            } catch (NumberFormatException n) {
+                            }
 
                             Movie mov = controller.objectStorage.returnMovie(title2);
 
                             // Nullcheck for invalid movies
                             if (mov != null) {
-                                //add to hashmap to write out later
-                                controller.objectStorage.addToGenres(mov.getId(), genreString);
+                                // Add to genre list in movie object if it already exists
+                                mov.addGenre(genreString);
                             } else {
                                 if (yearString.equals("????") || yearString.equals("0")) {
-                                    Movie m = new Movie(title, 0000, count);
-                                    controller.objectStorage.addToHashmap(title2, m);
-                                } else {
-                                    Movie m = new Movie(title, year, count);
-                                    controller.objectStorage.addToHashmap(title2, m);
+                                    year = 0;
                                 }
-                                controller.objectStorage.addToGenres(count, genreString);
+
+                                Movie m = new Movie(title, year, count);
+                                m.addGenre(genreString);
+                                controller.objectStorage.addToHashmap(title2, m);
+
                                 count++;
                             }
                         }
@@ -264,7 +264,7 @@ public class Parser {
 
                         if (mov != null) {
                             //add country to csv
-                            controller.objectStorage.addToCountries(mov.getId(), countryString);
+                            mov.addCountry(countryString);
                             //System.out.println(mov.getId()+ "," + countryString);
                         }
                     }
