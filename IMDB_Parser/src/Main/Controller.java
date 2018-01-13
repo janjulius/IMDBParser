@@ -3,9 +3,8 @@ package Main;
 import Data.ObjectStorage;
 import javafx.stage.Stage;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 
 import Constants.*;
@@ -43,7 +42,7 @@ public class Controller {
      * Path: out/CSV
      */
     public void writeMovieToCsv(HashMap<String, Movie> movies) throws FileNotFoundException {
-        PrintWriter pw = new PrintWriter(new File(Constants.csvDir + "Movies.csv"));
+        PrintWriter pw = new PrintWriter(new OutputStreamWriter(new FileOutputStream(Constants.csvDir + "Movies.csv"), StandardCharsets.UTF_8), false);
         StringBuilder sb = new StringBuilder();
 
         movies.forEach((String s, Movie m) -> {
@@ -88,7 +87,7 @@ public class Controller {
     }
 
     public void writeActorToCsv() throws FileNotFoundException {
-        PrintWriter pw = new PrintWriter(new File(Constants.csvDir + "Actors.csv"));
+        PrintWriter pw = new PrintWriter(new OutputStreamWriter(new FileOutputStream(Constants.csvDir + "Actors.csv"), StandardCharsets.UTF_8), false);
         StringBuilder sb = new StringBuilder();
 
         objectStorage.returnActors().forEach((Actor a) -> {
@@ -109,7 +108,7 @@ public class Controller {
     }
 
     public void writeActorMovieToCsv() throws FileNotFoundException {
-        PrintWriter pw = new PrintWriter(new File(Constants.csvDir + "ActorsInMovies.csv"));
+        PrintWriter pw = new PrintWriter(new OutputStreamWriter(new FileOutputStream(Constants.csvDir + "ActorsInMovies.csv"), StandardCharsets.UTF_8), false);
         StringBuilder sb = new StringBuilder();
 
         objectStorage.returnActors().forEach((Actor a) -> {
@@ -128,7 +127,7 @@ public class Controller {
     }
 
     public void writeToCsv(HashMap<Integer, String> hashmap, String file) throws FileNotFoundException {
-        PrintWriter pw = new PrintWriter(new File(Constants.csvDir + file + ".csv"));
+        PrintWriter pw = new PrintWriter(new OutputStreamWriter(new FileOutputStream(Constants.csvDir + file + ".csv"), StandardCharsets.UTF_8), false);
         StringBuilder sb = new StringBuilder();
 
         hashmap.forEach((Integer x, String y) -> {
